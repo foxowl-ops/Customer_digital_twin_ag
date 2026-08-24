@@ -1,0 +1,266 @@
+/* Liquid Glass / Obsidian Glassmorphism Design System */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --bg-dark: #090d16;
+  --bg-card: rgba(17, 24, 39, 0.65);
+  --bg-card-hover: rgba(24, 33, 53, 0.75);
+  --bg-glass-active: rgba(37, 50, 78, 0.75);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --border-glass-glow: rgba(99, 102, 241, 0.4);
+  --accent-cyan: #06b6d4;
+  --accent-indigo: #6366f1;
+  --accent-violet: #8b5cf6;
+  --accent-fuchsia: #d946ef;
+  --accent-emerald: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-rose: #f43f5e;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --blur-strength: 16px;
+}
+
+/* Streamlit Global Overrides */
+.stApp {
+  background: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+              radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.10) 0%, transparent 45%),
+              radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+              linear-gradient(145deg, #070a12 0%, #0c111d 50%, #090d16 100%) !important;
+  background-attachment: fixed !important;
+  color: var(--text-main) !important;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+/* Header & Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  color: var(--text-main) !important;
+  letter-spacing: -0.02em !important;
+  font-weight: 700 !important;
+}
+
+/* Glass Card Component */
+.glass-container {
+  background: var(--bg-card);
+  backdrop-filter: blur(var(--blur-strength));
+  -webkit-backdrop-filter: blur(var(--blur-strength));
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.45), 0 0 1px 1px rgba(255, 255, 255, 0.04) inset;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 1.25rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-container:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 14px 36px -4px rgba(0, 0, 0, 0.55), 0 0 12px 1px rgba(99, 102, 241, 0.15);
+}
+
+.glass-header-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-indigo), var(--accent-cyan), transparent);
+}
+
+/* Metric / Stat Card */
+.glass-stat-card {
+  background: rgba(17, 24, 39, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.25rem;
+  position: relative;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.glass-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(99, 102, 241, 0.35);
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.stat-delta {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.stat-delta.positive { color: var(--accent-emerald); }
+.stat-delta.negative { color: var(--accent-rose); }
+.stat-delta.neutral { color: var(--accent-cyan); }
+
+/* Badges & Tags */
+.glass-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: 1px solid transparent;
+}
+
+.badge-indigo {
+  background: rgba(99, 102, 241, 0.15);
+  color: #a5b4fc;
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.badge-cyan {
+  background: rgba(6, 182, 212, 0.15);
+  color: #67e8f9;
+  border-color: rgba(6, 182, 212, 0.3);
+}
+
+.badge-emerald {
+  background: rgba(16, 185, 129, 0.15);
+  color: #6ee7b7;
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.badge-amber {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fcd34d;
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.badge-rose {
+  background: rgba(244, 63, 94, 0.15);
+  color: #fda4af;
+  border-color: rgba(244, 63, 94, 0.3);
+}
+
+/* Pipeline Stepper Bar */
+.stepper-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 0.5rem;
+  padding: 0.75rem 0.5rem 1.25rem 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.3) transparent;
+  margin-bottom: 1.5rem;
+}
+
+.stepper-item {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.95rem;
+  background: rgba(17, 24, 39, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.stepper-item:hover {
+  background: rgba(30, 41, 59, 0.7);
+  border-color: rgba(99, 102, 241, 0.3);
+  color: var(--text-main);
+  transform: translateY(-1px);
+}
+
+.stepper-item.active {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(6, 182, 212, 0.25));
+  border-color: var(--accent-cyan);
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.25);
+}
+
+.stepper-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.stepper-item.active .stepper-num {
+  background: var(--accent-cyan);
+  color: #090d16;
+}
+
+/* Chat & Role-play Bubbles */
+.chat-bubble-user {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(139, 92, 246, 0.25));
+  border: 1px solid rgba(99, 102, 241, 0.4);
+  border-radius: 14px 14px 2px 14px;
+  padding: 0.9rem 1.15rem;
+  margin-left: auto;
+  max-width: 80%;
+  color: #ffffff;
+  margin-bottom: 0.85rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.chat-bubble-twin {
+  background: rgba(30, 41, 59, 0.65);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: 14px 14px 14px 2px;
+  padding: 0.9rem 1.15rem;
+  margin-right: auto;
+  max-width: 85%;
+  color: #f1f5f9;
+  margin-bottom: 0.85rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(10, 15, 26, 0.4);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.4);
+}
