@@ -264,3 +264,255 @@ h1, h2, h3, h4, h5, h6 {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(99, 102, 241, 0.4);
 }
+
+/* ==========================================================================
+   Native Streamlit Widget Glass Reskin
+   Streamlit's built-in controls (buttons, inputs, sliders, tabs, dataframes,
+   sidebar, etc.) render outside our custom HTML components, so without this
+   section they'd stay flat default-dark and break the liquid glass illusion.
+   Selectors are written defensively (testid substrings + BaseWeb classes)
+   so the look survives minor Streamlit version bumps.
+   ========================================================================== */
+
+/* Top chrome: header bar, toolbar, and decoration strip default to a light
+   theme regardless of .stApp — force them transparent/dark so the glass
+   background is continuous from the very top of the viewport. */
+[data-testid="stHeader"],
+[data-testid="stToolbar"],
+[data-testid="stDecoration"],
+header[data-testid="stHeader"] {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+[data-testid="stHeader"] * ,
+[data-testid="stToolbar"] button {
+  color: var(--text-main) !important;
+}
+
+[data-testid="stAppViewContainer"],
+[data-testid="stMain"] {
+  background: transparent !important;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+  background: linear-gradient(180deg, rgba(9, 13, 22, 0.92), rgba(12, 17, 29, 0.96)) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid var(--border-glass);
+}
+
+[data-testid="stSidebar"] > div:first-child {
+  background: transparent !important;
+}
+
+/* Buttons */
+.stButton > button,
+[data-testid^="stBaseButton"],
+button[data-baseweb="button"] {
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-glass) !important;
+  color: var(--text-main) !important;
+  border-radius: var(--radius-sm) !important;
+  font-weight: 600 !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+}
+
+.stButton > button:hover,
+[data-testid^="stBaseButton"]:hover,
+button[data-baseweb="button"]:hover {
+  background: rgba(99, 102, 241, 0.18) !important;
+  border-color: rgba(99, 102, 241, 0.55) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.25);
+}
+
+[data-testid^="stBaseButton"][kind="primary"],
+[data-testid="stBaseButton-primary"],
+.stButton > button[kind="primary"] {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.9), rgba(6, 182, 212, 0.85)) !important;
+  border: 1px solid rgba(148, 163, 253, 0.5) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
+}
+
+[data-testid^="stBaseButton"][kind="primary"]:hover,
+.stButton > button[kind="primary"]:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 8px 22px rgba(99, 102, 241, 0.45);
+}
+
+.stButton > button:disabled,
+[data-testid^="stBaseButton"]:disabled {
+  opacity: 0.4 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Text inputs, text areas, number inputs */
+[data-testid="stTextInput"] input,
+[data-testid="stTextArea"] textarea,
+[data-testid="stNumberInput"] input,
+[data-testid="stChatInput"] textarea {
+  background: rgba(10, 15, 26, 0.55) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-glass) !important;
+  border-radius: var(--radius-sm) !important;
+  color: var(--text-main) !important;
+}
+
+[data-testid="stTextInput"] input:focus,
+[data-testid="stTextArea"] textarea:focus,
+[data-testid="stNumberInput"] input:focus {
+  border-color: var(--accent-cyan) !important;
+  box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.2) !important;
+}
+
+/* Select boxes & multiselect (BaseWeb) */
+[data-testid="stSelectbox"] div[data-baseweb="select"] > div,
+[data-testid="stMultiSelect"] div[data-baseweb="select"] > div {
+  background: rgba(10, 15, 26, 0.55) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-glass) !important;
+  border-radius: var(--radius-sm) !important;
+  color: var(--text-main) !important;
+}
+
+[data-testid="stSelectbox"] div[data-baseweb="select"]:focus-within > div,
+[data-testid="stMultiSelect"] div[data-baseweb="select"]:focus-within > div {
+  border-color: var(--accent-cyan) !important;
+}
+
+div[data-baseweb="popover"] ul,
+div[data-baseweb="menu"] {
+  background: rgba(17, 24, 39, 0.96) !important;
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass) !important;
+}
+
+[data-testid="stMultiSelect"] span[data-baseweb="tag"] {
+  background: rgba(99, 102, 241, 0.25) !important;
+  border: 1px solid rgba(99, 102, 241, 0.4) !important;
+}
+
+/* Sliders */
+[data-testid="stSlider"] div[role="slider"] {
+  background-color: var(--accent-cyan) !important;
+  box-shadow: 0 0 0 5px rgba(6, 182, 212, 0.18) !important;
+}
+
+[data-testid="stSlider"] div[data-baseweb="slider"] > div:nth-child(2) {
+  background: linear-gradient(90deg, var(--accent-indigo), var(--accent-cyan)) !important;
+}
+
+/* Tabs */
+[data-testid="stTabs"] [data-baseweb="tab-list"] {
+  gap: 0.4rem;
+  border-bottom: 1px solid var(--border-glass) !important;
+}
+
+[data-testid="stTabs"] button[data-baseweb="tab"] {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  color: var(--text-muted) !important;
+  transition: all 0.2s ease;
+}
+
+[data-testid="stTabs"] button[data-baseweb="tab"]:hover {
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--text-main) !important;
+}
+
+[data-testid="stTabs"] button[aria-selected="true"] {
+  background: rgba(99, 102, 241, 0.16);
+  color: #ffffff !important;
+}
+
+[data-testid="stTabs"] div[data-baseweb="tab-highlight"] {
+  background-color: var(--accent-cyan) !important;
+  height: 2px !important;
+}
+
+/* DataFrames / Tables */
+[data-testid="stDataFrame"],
+[data-testid="stTable"] {
+  border-radius: var(--radius-md) !important;
+  overflow: hidden;
+  border: 1px solid var(--border-glass) !important;
+}
+
+/* Expander */
+[data-testid="stExpander"] {
+  background: var(--bg-card) !important;
+  backdrop-filter: blur(var(--blur-strength));
+  border: 1px solid var(--border-glass) !important;
+  border-radius: var(--radius-md) !important;
+  overflow: hidden;
+}
+
+[data-testid="stExpander"] summary {
+  color: var(--text-main) !important;
+}
+
+/* Checkbox / Toggle / Radio accents */
+[data-testid="stCheckbox"] label span[data-baseweb="checkbox"] > div:first-child,
+input[type="checkbox"] {
+  accent-color: var(--accent-cyan);
+}
+
+[data-testid="stToggle"] div[data-baseweb="checkbox"] div[role="checkbox"][aria-checked="true"] {
+  background-color: var(--accent-cyan) !important;
+  border-color: var(--accent-cyan) !important;
+}
+
+[data-testid="stRadio"] label span:first-child {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Forms */
+[data-testid="stForm"] {
+  background: rgba(17, 24, 39, 0.35);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+}
+
+/* Alerts (success / warning / info / error) — glassify to match theme */
+[data-testid="stAlert"] {
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-md) !important;
+  border: 1px solid var(--border-glass) !important;
+}
+
+/* Progress bar */
+[data-testid="stProgress"] div[role="progressbar"] > div {
+  background: linear-gradient(90deg, var(--accent-indigo), var(--accent-cyan)) !important;
+}
+
+/* Metric / code blocks */
+[data-testid="stCodeBlock"] pre {
+  background: rgba(6, 9, 16, 0.75) !important;
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-sm);
+}
+
+/* Subtle fade-in for stage content on rerun */
+[data-testid="stAppViewContainer"] .main .block-container {
+  animation: glassFadeIn 0.35s ease;
+}
+
+@keyframes glassFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Focus outline consistency */
+:focus-visible {
+  outline: 2px solid rgba(6, 182, 212, 0.6) !important;
+  outline-offset: 1px;
+}

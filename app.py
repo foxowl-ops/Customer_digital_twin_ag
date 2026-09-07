@@ -7,8 +7,8 @@ load_dotenv()
 
 # Streamlit Page Configuration
 st.set_page_config(
-    page_title="Generative AI Digital Twin of a Customer",
-    page_icon="🧬",
+    page_title="Generative AI Digital Twin of a Customer — Insurance",
+    page_icon="🛡️",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -43,11 +43,11 @@ with st.sidebar:
         """
         <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
             <div style="font-size: 2rem; background: rgba(99, 102, 241, 0.25); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(99, 102, 241, 0.4);">
-                🧬
+                🛡️
             </div>
             <div>
                 <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #ffffff;">TwinEngine AI</h3>
-                <span style="font-size: 0.75rem; color: #94a3b8;">Customer Digital Twin Platform</span>
+                <span style="font-size: 0.75rem; color: #94a3b8;">General Insurance Digital Twin Platform</span>
             </div>
         </div>
         """,
@@ -68,9 +68,10 @@ with st.sidebar:
         help="xAI Grok API key for live grok-2 / grok-beta reasoning. If uncredited or empty, high-fidelity persona simulation is used."
     )
     
-    if api_key_input:
+    if api_key_input and api_key_input != st.session_state.get("_last_applied_api_key"):
         llm_service.update_key(api_key_input)
-        
+        st.session_state._last_applied_api_key = api_key_input
+
     if llm_service.is_live and llm_service.provider == "xAI Grok":
         engine_status = "🟢 xAI Grok (grok-2 / beta)"
     elif llm_service.is_live and llm_service.provider == "Anthropic Claude":
@@ -125,8 +126,8 @@ with st.sidebar:
     st.markdown(
         """
         <div style="background: rgba(17, 24, 39, 0.5); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 0.75rem; font-size: 0.75rem; color: #64748b;">
-            <strong>TwinEngine Architecture v2.0</strong><br/>
-            GDPR & CCPA Compliant • xAI Grok & Claude 3.5 • Obsidian Glass UI
+            <strong>TwinEngine Architecture v2.0 — General Insurance</strong><br/>
+            GDPR & CCPA Compliant • xAI Grok & Claude 3.5 • Liquid Glass UI
         </div>
         """,
         unsafe_allow_html=True

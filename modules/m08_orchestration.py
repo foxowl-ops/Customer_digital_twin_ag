@@ -61,16 +61,16 @@ def render_stage_08():
         twin = twin_store[selected_twin_id]
         
         preset_scenarios = [
-            "We are introducing a $15/month fee on all checking accounts that don't maintain a $10k minimum balance. How do you respond?",
-            "Competitor NeoBank just launched a 5.25% APY savings account with zero minimum balance. Are you planning to transfer funds?",
-            "We are launching an AI-powered automated wealth management portfolio with 0.25% management fee. Would you enroll?",
+            "We are raising your auto policy premium by $15/month unless you increase your deductible to $1,500. How do you respond?",
+            "Competitor InsurTech just launched a bundled auto + home policy with 20% lower premiums. Are you planning to switch carriers?",
+            "We are launching an AI-powered usage-based auto insurance program with a 0.25% telematics discount. Would you enroll?",
             "Custom Scenario / Question"
         ]
-        
+
         selected_scenario = st.selectbox("Scenario Preset", preset_scenarios)
-        
+
         if selected_scenario == "Custom Scenario / Question":
-            scenario_text = st.text_area("Your Scenario or Inquiry", "How do you feel about our current interest rates and digital mobile app?", height=90)
+            scenario_text = st.text_area("Your Scenario or Inquiry", "How do you feel about our current premiums and digital claims app?", height=90)
         else:
             scenario_text = selected_scenario
             

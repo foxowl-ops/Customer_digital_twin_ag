@@ -43,16 +43,16 @@ def render_stage_07():
         )
         
         sample_queries = [
-            "wire transfer fee escalation and refund request",
-            "mortgage refinancing digital process",
-            "fraud detection false positive on travel card",
-            "wealth portfolio rebalancing delay",
-            "high yield savings interest rate competitor match"
+            "premium increase escalation and refund request",
+            "homeowners claim adjuster inspection delay",
+            "fraud detection false positive on auto claim",
+            "umbrella liability coverage gap review",
+            "auto insurance premium competitor match"
         ]
-        
+
         selected_sample = st.selectbox("Sample Query Presets", ["-- Custom Query --"] + sample_queries)
-        
-        default_query = selected_sample if selected_sample != "-- Custom Query --" else "wire transfer fee escalation"
+
+        default_query = selected_sample if selected_sample != "-- Custom Query --" else "premium increase escalation"
         query_text = st.text_area("Retrieval Query", default_query, height=80)
         
         cust_filter = st.selectbox("Filter to Customer (Optional)", ["All Customers"] + sorted(list(set([d['customer_id'] for d in docs]))))

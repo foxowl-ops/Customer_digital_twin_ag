@@ -166,48 +166,48 @@ class LLMService:
     def _simulate_mock_twin_reply(self, user_msg: str, twin_profile: Optional[dict]) -> str:
         """Deterministic persona response generator mimicking tone and psychographics."""
         if not twin_profile:
-            return "From my perspective as a customer, I value transparency, competitive yields, and fast digital execution."
-            
+            return "From my perspective as a policyholder, I value transparency, fair premiums, and fast digital claims handling."
+
         persona_name = twin_profile.get("persona_name", "Customer Twin")
         price_sens = twin_profile.get("behavioral_weights", {}).get("price_sensitivity", 0.5)
         loyalty = twin_profile.get("behavioral_weights", {}).get("brand_loyalty", 0.5)
         tone = twin_profile.get("communication_voice", {}).get("tone", "Direct and practical")
-        
+
         lower_msg = user_msg.lower()
-        
-        if "fee" in lower_msg or "price" in lower_msg or "cost" in lower_msg or "rate" in lower_msg:
+
+        if "fee" in lower_msg or "price" in lower_msg or "cost" in lower_msg or "premium" in lower_msg or "deductible" in lower_msg:
             if price_sens > 0.6:
                 return (
                     f"Look, as {persona_name}, my biggest sticking point is always unnecessary costs. "
-                    f"If you're asking me to pay additional fees or accept sub-par rates, I will look elsewhere immediately. "
-                    f"Competitors are currently offering 5%+ APY and zero maintenance fees. How specifically does your offer justify the margin?"
+                    f"If you're asking me to pay a higher premium or accept a worse deductible, I will look elsewhere immediately. "
+                    f"Competitors are currently offering 20% lower premiums with the same coverage limits. How specifically does your offer justify the margin?"
                 )
             else:
                 return (
-                    f"Price is secondary to me compared to execution speed and reliability. "
-                    f"I'm willing to pay a premium if it guarantees dedicated advisor access and automated tax optimization."
+                    f"Price is secondary to me compared to claims turnaround and coverage reliability. "
+                    f"I'm willing to pay a premium if it guarantees dedicated agent access and fast claims payout."
                 )
-        elif "app" in lower_msg or "digital" in lower_msg or "mobile" in lower_msg:
+        elif "app" in lower_msg or "digital" in lower_msg or "mobile" in lower_msg or "claim" in lower_msg:
             return (
-                f"Speaking candidly, I expect instant digital execution. If I have to walk into a physical branch "
-                f"or fill out a PDF scan for this, it's an immediate dealbreaker for me. Everything needs to be 100% manageable on mobile."
+                f"Speaking candidly, I expect instant digital claims filing. If I have to walk into a physical branch "
+                f"or fax paperwork for this, it's an immediate dealbreaker for me. Everything needs to be 100% manageable on mobile."
             )
         elif "switch" in lower_msg or "competitor" in lower_msg or "offer" in lower_msg:
             if loyalty < 0.4:
                 return (
-                    f"Honestly, I don't have deep loyalty here. If a competitor offers a seamless onboarding and a 50 bps yield bump, "
-                    f"I will move my liquid balances within 48 hours. What makes you think your proposition keeps me locked in?"
+                    f"Honestly, I don't have deep loyalty here. If a competitor offers a seamless quote and a meaningful premium discount, "
+                    f"I will switch carriers at my next renewal. What makes you think your proposition keeps me locked in?"
                 )
             else:
                 return (
-                    f"I've been with the institution for years and prefer keeping all my accounts under one roof, "
-                    f"provided you match market rates and don't introduce friction into my day-to-day banking."
+                    f"I've been with the carrier for years and prefer keeping all my policies bundled under one roof, "
+                    f"provided you match market premiums and don't introduce friction into claims handling."
                 )
         else:
             return (
                 f"Given my background ({tone}), here is my take: "
-                f"I'm receptive to your proposal, but you need to demonstrate tangible ROI and prove how this integrates with my existing portfolio. "
-                f"What are the specific contract terms and downside protections?"
+                f"I'm receptive to your proposal, but you need to demonstrate tangible coverage value and prove how this integrates with my existing policies. "
+                f"What are the specific policy terms, exclusions, and claims turnaround guarantees?"
             )
 
     def extract_themes_llm(self, feedback_texts: list[str]) -> dict:
@@ -236,19 +236,19 @@ class LLMService:
                 
         return {
             "top_positive_themes": [
-                {"theme": "Seamless High-Yield Savings & Automated Sweeps", "frequency": "38%", "sentiment_score": 0.88},
-                {"theme": "Responsive Dedicated Wealth Advisors", "frequency": "24%", "sentiment_score": 0.82},
-                {"theme": "Fast Digital Mortgage Refinancing", "frequency": "19%", "sentiment_score": 0.79}
+                {"theme": "Seamless Mobile Claims Filing & Status Tracking", "frequency": "38%", "sentiment_score": 0.88},
+                {"theme": "Responsive Dedicated Insurance Agents", "frequency": "24%", "sentiment_score": 0.82},
+                {"theme": "Fast Digital Policy Bundling & Renewal", "frequency": "19%", "sentiment_score": 0.79}
             ],
             "top_negative_themes": [
-                {"theme": "Unannounced Wire & Intermediary Transfer Fees", "frequency": "32%", "sentiment_score": -0.85},
-                {"theme": "Aggressive Fraud False Positives on Travel Cards", "frequency": "21%", "sentiment_score": -0.74},
-                {"theme": "Hold Times During Critical Support Escalations", "frequency": "18%", "sentiment_score": -0.68}
+                {"theme": "Unannounced Premium Increases at Renewal", "frequency": "32%", "sentiment_score": -0.85},
+                {"theme": "Slow Claims Adjuster Response Times", "frequency": "21%", "sentiment_score": -0.74},
+                {"theme": "Hold Times During Critical Claims Escalations", "frequency": "18%", "sentiment_score": -0.68}
             ],
             "net_sentiment_index": "+42 (Moderately Positive)",
             "key_recommendations": [
-                "Eliminate outbound domestic wire fees for tier balances above $50k.",
-                "Introduce self-service fraud unfreeze button directly in iOS/Android app.",
-                "Implement proactive rate match alerts against top 3 NeoBank market rates."
+                "Cap surprise renewal premium increases and proactively disclose rate change drivers.",
+                "Introduce self-service claims status tracker directly in iOS/Android app.",
+                "Implement proactive premium match alerts against top 3 InsurTech competitor rates."
             ]
         }

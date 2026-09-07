@@ -19,7 +19,7 @@ def render_stage_12():
             {
                 "id": "VAL-FG-001",
                 "type": "Synthetic Focus Group",
-                "target": "Platinum Wealth Subscription ($25/mo)",
+                "target": "Platinum Shield Bundle ($25/mo add-on)",
                 "status": "APPROVED",
                 "score": 5,
                 "timestamp": "2026-08-24 10:30:15",
@@ -30,7 +30,7 @@ def render_stage_12():
             {
                 "id": "VAL-RP-002",
                 "type": "Sales Role-Play",
-                "target": "Sarah Jenkins - Wealth Advisory",
+                "target": "Sarah Jenkins - Umbrella Liability Pitch",
                 "status": "PENDING_REVIEW",
                 "score": None,
                 "timestamp": "2026-08-24 11:15:40",
@@ -97,8 +97,8 @@ def render_stage_12():
         flags = st.multiselect("Compliance / Quality Flags", [
             "Excessive Sycophancy / Generic Tone",
             "Disregard of High Price Sensitivity Weight",
-            "Unauthorized Financial Advice Risk",
-            "Hallucinated Contract Terms",
+            "Unauthorized Coverage / Underwriting Advice Risk",
+            "Hallucinated Policy Terms",
             "None / Flawless Execution"
         ], default=selected_item.get("flags") or ["None / Flawless Execution"])
         

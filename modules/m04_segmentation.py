@@ -57,7 +57,7 @@ def render_stage_04():
             unsafe_allow_html=True
         )
         
-        plot_dim = st.radio("Visualization Mode", ["3D Latent Space (PCA)", "2D PCA Scatter", "Income vs. Total Balance"], horizontal=True)
+        plot_dim = st.radio("Visualization Mode", ["3D Latent Space (PCA)", "2D PCA Scatter", "Income vs. Annual Premium"], horizontal=True)
         
         if plot_dim == "3D Latent Space (PCA)":
             fig = px.scatter_3d(
@@ -66,9 +66,9 @@ def render_stage_04():
                 y="pca_y",
                 z="pca_z",
                 color="segment_name",
-                hover_data=["customer_id", "name", "annual_income", "total_balance", "price_sensitivity"],
+                hover_data=["customer_id", "name", "annual_income", "annual_premium", "price_sensitivity"],
                 color_discrete_sequence=["#6366f1", "#06b6d4", "#f59e0b", "#10b981", "#ec4899"],
-                labels={"pca_x": "PCA 1 (Wealth & Scale)", "pca_y": "PCA 2 (Digital Engagement)", "pca_z": "PCA 3 (Price Sensitivity)"}
+                labels={"pca_x": "PCA 1 (Coverage & Scale)", "pca_y": "PCA 2 (Digital Engagement)", "pca_z": "PCA 3 (Price Sensitivity)"}
             )
             fig.update_layout(
                 scene=dict(
@@ -89,8 +89,8 @@ def render_stage_04():
                 x="pca_x",
                 y="pca_y",
                 color="segment_name",
-                size="total_balance",
-                hover_data=["customer_id", "name", "occupation", "churn_risk"],
+                size="annual_premium",
+                hover_data=["customer_id", "name", "occupation", "lapse_risk"],
                 color_discrete_sequence=["#6366f1", "#06b6d4", "#f59e0b", "#10b981", "#ec4899"],
                 labels={"pca_x": "Principal Component 1", "pca_y": "Principal Component 2"}
             )
@@ -102,12 +102,12 @@ def render_stage_04():
             fig = px.scatter(
                 df,
                 x="annual_income",
-                y="total_balance",
+                y="annual_premium",
                 color="segment_name",
                 size="price_sensitivity",
                 hover_data=["customer_id", "name", "credit_score"],
                 color_discrete_sequence=["#6366f1", "#06b6d4", "#f59e0b", "#10b981", "#ec4899"],
-                labels={"annual_income": "Annual Income ($)", "total_balance": "Total Deposit Balance ($)"}
+                labels={"annual_income": "Annual Income ($)", "annual_premium": "Total Annual Premium ($)"}
             )
             fig.update_layout(height=440, legend=dict(orientation="h", yanchor="bottom", y=-0.2, xanchor="center", x=0.5))
             fig = apply_plotly_theme(fig)

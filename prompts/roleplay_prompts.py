@@ -14,5 +14,5 @@ def format_roleplay_objection_prompt(user_pitch: str, twin_profile: dict) -> str
     return f"""The sales representative just said:
 "{user_pitch}"
 
-As {twin_profile.get('customer_name')}, formulate an authentic objection or clarifying pushback reflecting your high price sensitivity, skepticism, and specific holding needs.
+As {twin_profile.get('customer_name')}, formulate an authentic objection or clarifying pushback reflecting your high price sensitivity, skepticism, and specific policy holding needs.
 """
