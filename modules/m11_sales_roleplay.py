@@ -58,11 +58,11 @@ def render_stage_11():
             unsafe_allow_html=True
         )
         
-        product_pitch_type = st.selectbox("Product You Are Pitching", [
-            "Premium Wealth Advisory (0.75% fee, tax-loss harvesting)",
-            "High-Yield Cash Sweep (4.85% APY with $10k min balance)",
-            "Commercial Line of Credit ($250k at Prime + 1.25%)",
-            "Executive Term Life Coverage ($1.5M with accelerated underwriting)"
+        product_pitch_type = st.selectbox("Policy You Are Pitching", [
+            "Umbrella Liability Policy ($1M coverage, $15/mo add-on)",
+            "Multi-Policy Bundle (Auto + Home, 20% bundle discount)",
+            "Business Owners Policy ($250k liability + property coverage)",
+            "Term Life Insurance ($1.5M with accelerated underwriting)"
         ])
         
         if st.button("🔄 Reset Roleplay Session", use_container_width=True):
@@ -81,16 +81,16 @@ def render_stage_11():
                         "title": f"Battlecard: {product_pitch_type.split('(')[0]} vs {twin['persona_name']}",
                         "score": score,
                         "winning_strategies": [
-                            f"Lead with net after-fee yield to defuse the {twin['behavioral_weights']['price_sensitivity']*10:.0f}/10 price sensitivity.",
-                            "Emphasize mobile instant execution and API automation.",
-                            "Highlight FDIC / SIPC guarantee to lower skepticism."
+                            f"Lead with net after-discount premium to defuse the {twin['behavioral_weights']['price_sensitivity']*10:.0f}/10 price sensitivity.",
+                            "Emphasize mobile instant claims filing and app-based policy management.",
+                            "Highlight state guaranty association backing to lower skepticism."
                         ],
                         "fatal_pitfalls": [
-                            "Never gloss over wire or administrative fees.",
-                            "Avoid generic marketing jargon; focus on hard basis point spreads.",
+                            "Never gloss over policy fees or exclusions.",
+                            "Avoid generic marketing jargon; focus on hard coverage-limit comparisons.",
                             "Do not mandate physical branch visits for onboarding."
                         ],
-                        "coach_summary": f"Strong engagement. The rep successfully addressed objections from {twin['customer_name']}. Next time, quantify exact tax savings earlier in the pitch."
+                        "coach_summary": f"Strong engagement. The rep successfully addressed objections from {twin['customer_name']}. Next time, quantify exact premium savings earlier in the pitch."
                     }
                     st.session_state.roleplay_battlecard = battlecard
                     st.session_state.roleplay_history.append(battlecard)

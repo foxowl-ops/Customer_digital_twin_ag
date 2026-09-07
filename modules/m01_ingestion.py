@@ -7,7 +7,7 @@ def render_stage_01():
     """Stage 01: Data Ingestion Layer."""
     render_banner(
         title="Stage 01: Customer & Market Data Ingestion",
-        description="Simulated multi-source data ingestion pipeline integrating Core Banking, CRM, Policy Administration, and Market Signal feeds into an unified data model.",
+        description="Simulated multi-source data ingestion pipeline integrating Policy Administration, Claims, CRM, and Market Signal feeds into an unified data model.",
         icon="📥",
         accent_color="indigo"
     )
@@ -19,7 +19,7 @@ def render_stage_01():
     # Key Metrics Row
     m1, m2, m3, m4 = st.columns(4)
     with m1:
-        render_metric_card("Ingested Customers", f"{len(df):,}", "+150 New", "positive")
+        render_metric_card("Ingested Policyholders", f"{len(df):,}", "+150 New", "positive")
     with m2:
         render_metric_card("Interaction Documents", f"{len(docs):,}", "Active RAG Store", "neutral")
     with m3:
@@ -75,10 +75,10 @@ def render_stage_01():
             <div class="glass-container" style="margin-top: 1rem; padding: 1rem;">
                 <h5 style="margin: 0 0 0.5rem 0; color: #67e8f9; font-size: 0.9rem;">📡 Live Pipeline Feeds</h5>
                 <ul style="margin: 0; padding-left: 1.2rem; color: #94a3b8; font-size: 0.82rem; line-height: 1.6;">
-                    <li><strong style="color: #e2e8f0;">Core Banking (FIS/Temenos)</strong>: Daily balances & deposits</li>
-                    <li><strong style="color: #e2e8f0;">Policy Administration (Guidewire)</strong>: Active coverage terms</li>
+                    <li><strong style="color: #e2e8f0;">Policy Administration (Guidewire/Duck Creek)</strong>: Active coverage & premium terms</li>
+                    <li><strong style="color: #e2e8f0;">Claims Management System</strong>: First-notice-of-loss & claims status</li>
                     <li><strong style="color: #e2e8f0;">CRM Interaction Stream (Salesforce)</strong>: Transcripts & CSAT</li>
-                    <li><strong style="color: #e2e8f0;">Market & Regulatory Feed</strong>: Fed rate updates & competitor signals</li>
+                    <li><strong style="color: #e2e8f0;">Market & Regulatory Feed</strong>: Catastrophe alerts & competitor rate filings</li>
                 </ul>
             </div>
             """,
@@ -102,7 +102,7 @@ def render_stage_01():
         tab1, tab2, tab3 = st.tabs(["Customer Accounts", "Evidence Documents", "External Market Signals"])
         
         with tab1:
-            preview_cols = ["customer_id", "name", "age", "occupation", "annual_income", "total_balance", "credit_score"]
+            preview_cols = ["customer_id", "name", "age", "occupation", "annual_income", "annual_premium", "credit_score"]
             st.dataframe(
                 df[preview_cols].head(8),
                 use_container_width=True,
@@ -110,7 +110,7 @@ def render_stage_01():
                     "customer_id": "Customer ID",
                     "name": "Customer Name",
                     "annual_income": st.column_config.NumberColumn("Annual Income", format="$%d"),
-                    "total_balance": st.column_config.NumberColumn("Total Balance", format="$%d"),
+                    "annual_premium": st.column_config.NumberColumn("Annual Premium", format="$%d"),
                 }
             )
             

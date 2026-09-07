@@ -20,6 +20,31 @@ THEME = {
     "text_muted": "#64748b",
 }
 
+_original_st_markdown = st.markdown
+
+def _flatten_html(html: str) -> str:
+    """Strips per-line leading whitespace from a multi-line HTML string.
+
+    Every glass card / stat / chat-bubble block in this app is written as
+    an f-string indented to match its surrounding Python code, often with
+    blank lines left in for readability. Once a blank line appears inside
+    an `unsafe_allow_html=True` block, Streamlit's Markdown renderer treats
+    whatever follows as a *new* CommonMark block — and if that next line
+    still carries 4+ spaces of leftover source indentation, it gets parsed
+    as an indented code block and shown as literal text instead of being
+    rendered as HTML. Since whitespace is not meaningful in HTML, it's
+    always safe to strip it per line before handing the string to
+    Streamlit.
+    """
+    return "\n".join(line.lstrip() for line in html.strip("\n").split("\n")).strip()
+
+def _patched_markdown(body, *args, **kwargs):
+    if kwargs.get("unsafe_allow_html") and isinstance(body, str):
+        body = _flatten_html(body)
+    return _original_st_markdown(body, *args, **kwargs)
+
+st.markdown = _patched_markdown
+
 def inject_custom_css():
     """Injects the liquid glass design system CSS into the Streamlit app."""
     css_path = os.path.join(os.path.dirname(__file__), "liquid_glass.css")

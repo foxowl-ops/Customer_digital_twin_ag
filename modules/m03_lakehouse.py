@@ -16,13 +16,13 @@ def render_stage_03():
     # Top Stats
     s1, s2, s3, s4 = st.columns(4)
     with s1:
-        render_metric_card("Total Ingested Deposits", f"${df['total_balance'].sum():,.0f}", "Across All Accounts", "neutral")
+        render_metric_card("Total Annual Premium Written", f"${df['annual_premium'].sum():,.0f}", "Across All Policies", "neutral")
     with s2:
-        render_metric_card("Avg Customer Balance", f"${df['total_balance'].mean():,.0f}", "Healthy Liquidity", "positive")
+        render_metric_card("Avg Annual Premium", f"${df['annual_premium'].mean():,.0f}", "Healthy Book Growth", "positive")
     with s3:
-        render_metric_card("Avg Credit Score", f"{df['credit_score'].mean():.0f}", "Prime Tier", "positive")
+        render_metric_card("Avg Credit / Insurance Score", f"{df['credit_score'].mean():.0f}", "Prime Tier", "positive")
     with s4:
-        render_metric_card("Avg Products / Customer", f"{df['product_count'].mean():.1f}", "High Multi-Product Depth", "positive")
+        render_metric_card("Avg Policies / Customer", f"{df['policy_count'].mean():.1f}", "High Multi-Policy Depth", "positive")
         
     st.markdown("<div style='margin-top: 1rem;'></div>", unsafe_allow_html=True)
     
@@ -48,8 +48,8 @@ def render_stage_03():
         segments = ["All"] + sorted(list(df["segment_name"].dropna().unique()))
         selected_seg = st.selectbox("Customer Segment", segments)
         
-        risk_opts = ["All"] + list(df["risk_appetite"].unique())
-        selected_risk = st.selectbox("Risk Appetite", risk_opts)
+        risk_opts = ["All"] + list(df["risk_profile"].unique())
+        selected_risk = st.selectbox("Risk Profile", risk_opts)
         
         search_query = st.text_input("Search Name, ID, City, or Occupation", "")
         
@@ -66,7 +66,7 @@ def render_stage_03():
             filtered_df = filtered_df[filtered_df["segment_name"] == selected_seg]
             
         if selected_risk != "All":
-            filtered_df = filtered_df[filtered_df["risk_appetite"] == selected_risk]
+            filtered_df = filtered_df[filtered_df["risk_profile"] == selected_risk]
             
         if search_query:
             q = search_query.lower()
@@ -92,7 +92,7 @@ def render_stage_03():
         
         show_cols = [
             "customer_id", "name", "age", "occupation", "city", "annual_income",
-            "net_worth", "total_balance", "segment_name", "risk_appetite", "churn_risk"
+            "insured_asset_value", "annual_premium", "segment_name", "risk_profile", "lapse_risk"
         ]
         
         st.dataframe(
@@ -102,9 +102,9 @@ def render_stage_03():
                 "customer_id": "Customer ID",
                 "name": "Customer Name",
                 "annual_income": st.column_config.NumberColumn("Income", format="$%d"),
-                "net_worth": st.column_config.NumberColumn("Net Worth", format="$%d"),
-                "total_balance": st.column_config.NumberColumn("Balance", format="$%d"),
-                "churn_risk": st.column_config.ProgressColumn("Churn Risk", min_value=0.0, max_value=1.0, format="%.2f"),
+                "insured_asset_value": st.column_config.NumberColumn("Insured Asset Value", format="$%d"),
+                "annual_premium": st.column_config.NumberColumn("Annual Premium", format="$%d"),
+                "lapse_risk": st.column_config.ProgressColumn("Lapse Risk", min_value=0.0, max_value=1.0, format="%.2f"),
             }
         )
         
@@ -120,10 +120,11 @@ def render_stage_03():
                     st.markdown(f"**Full Name:** `{drill_row['name']}`")
                     st.markdown(f"**Occupation:** `{drill_row['occupation']}` ({drill_row['city']}, {drill_row['state']})")
                     st.markdown(f"**Tenure:** `{drill_row['tenure_years']} years`")
-                    st.markdown(f"**Holdings:** {', '.join(drill_row['products_held'])}")
+                    st.markdown(f"**Policies Held:** {', '.join(drill_row['policies_held'])}")
                 with c_d2:
                     st.markdown(f"**Segment:** `{drill_row['segment_name']}`")
                     st.markdown(f"**Price Sensitivity:** `{drill_row['price_sensitivity']}/10`")
                     st.markdown(f"**Brand Loyalty:** `{drill_row['brand_loyalty']}/10`")
                     st.markdown(f"**Digital Engagement:** `{drill_row['digital_engagement']}/100`")
+                    st.markdown(f"**Claims Filed:** `{drill_row['num_claims_filed']}` ({drill_row['last_claim_status']})")
                     st.markdown(f"**Recent Quote:** *'{drill_row['feedback_history'][0]}'*")

@@ -63,15 +63,15 @@ def render_stage_09():
         st.markdown("#### 🎯 Focus Group Topic & Concept")
         
         preset_topics = [
-            "New 'Platinum Wealth' Subscription at $25/mo with 5.50% APY and dedicated human advisor",
-            "Eliminating paper statements and imposing a $5/mo fee for non-digital branch transactions",
-            "Introducing automated AI tax-loss harvesting for everyday retail checking accounts",
+            "New 'Platinum Shield' Bundle at $25/mo extra with a dedicated human agent and guaranteed 24hr claims response",
+            "Eliminating paper policy documents and imposing a $5/mo fee for non-digital in-branch transactions",
+            "Introducing automated AI usage-based discounts for everyday auto insurance policyholders",
             "Custom Concept / Question"
         ]
-        
+
         chosen_topic = st.selectbox("Topic Preset", preset_topics)
         if chosen_topic == "Custom Concept / Question":
-            topic_text = st.text_area("Concept Proposal / Question", "What would motivate you to consolidate all your liquid deposits into our institution?", height=80)
+            topic_text = st.text_area("Concept Proposal / Question", "What would motivate you to consolidate all your policies with our carrier?", height=80)
         else:
             topic_text = chosen_topic
             
@@ -131,7 +131,7 @@ def render_stage_09():
                 "topic": topic_text,
                 "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
                 "transcript": transcript,
-                "consensus": "Polarized reaction. High-income segments approve of premium yields, while price-sensitive segments reject monthly subscription fees.",
+                "consensus": "Polarized reaction. Coverage-focused segments approve of the guaranteed response SLA, while price-sensitive segments reject the added monthly fee.",
                 "sentiment_distribution": {"Positive": 25, "Neutral": 25, "Negative": 50},
                 "recommendation": "Introduce a balance-waiver threshold (e.g. $25/mo waived for balances > $25k) to capture affluent demand without alienating price-sensitive cohorts."
             }

@@ -86,12 +86,14 @@ def render_twin_profile_card(twin: dict):
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.65rem; font-size: 0.85rem;">
                 <div><span style="color: #64748b;">Segment:</span> <strong style="color: #67e8f9;">{twin.get('segment_name')}</strong></div>
                 <div><span style="color: #64748b;">Decision Style:</span> <strong style="color: #f8fafc;">{psy.get('decision_style')}</strong></div>
-                <div><span style="color: #64748b;">Income / Net Worth:</span> <strong style="color: #f8fafc;">${demo.get('annual_income', 0):,} / ${demo.get('net_worth', 0):,}</strong></div>
-                <div><span style="color: #64748b;">Credit Score:</span> <strong style="color: #10b981;">{demo.get('credit_score')}</strong></div>
+                <div><span style="color: #64748b;">Income / Insured Assets:</span> <strong style="color: #f8fafc;">${demo.get('annual_income', 0):,} / ${demo.get('insured_asset_value', 0):,}</strong></div>
+                <div><span style="color: #64748b;">Credit / Insurance Score:</span> <strong style="color: #10b981;">{demo.get('credit_score')}</strong></div>
+                <div><span style="color: #64748b;">Claims Filed:</span> <strong style="color: #f8fafc;">{demo.get('num_claims_filed', 0)}</strong></div>
+                <div><span style="color: #64748b;">Last Claim Status:</span> <strong style="color: #f8fafc;">{demo.get('last_claim_status', 'No Claims Filed')}</strong></div>
             </div>
             
             <div style="margin-top: 0.85rem;">
-                <span style="color: #64748b; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700;">Holdings:</span>
+                <span style="color: #64748b; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700;">Policies Held:</span>
                 <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.35rem;">
                     {"".join([f'<span class="glass-badge badge-cyan" style="font-size: 0.75rem;">{h}</span>' for h in twin.get('holdings', [])])}
                 </div>

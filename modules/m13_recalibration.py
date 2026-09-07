@@ -60,7 +60,7 @@ def render_stage_13():
         new_risk = st.slider("Risk Tolerance Weight", 0.0, 1.0, float(current_weights.get("risk_tolerance", 0.5)), 0.05)
         new_skep = st.slider("Skepticism Weight", 0.0, 1.0, float(current_weights.get("skepticism", 0.5)), 0.05)
         
-        recal_reason = st.text_input("Recalibration Changelog Note", "Adjusted for macro inflation and NeoBank competitive pressure.")
+        recal_reason = st.text_input("Recalibration Changelog Note", "Adjusted for catastrophe-driven premium inflation and InsurTech competitive pressure.")
         target_version = st.selectbox("Target Version Tag", ["v1.1 (Patch)", "v2.0 (Major Release)", "v2.1 (Feature Update)"])
         
         if st.button("🚀 Publish Recalibrated Twin Version", type="primary", use_container_width=True):

@@ -15,45 +15,47 @@ def render_stage_05():
     
     docs = st.session_state.evidence_docs
     df = st.session_state.customers_df
-    
-    # Extract all feedback snippets
+
+    # Segment filter is chosen up-front so both the headline metrics and the
+    # extraction workbench below stay in sync with the same scoped corpus.
+    target_seg = st.selectbox("Filter Feedback by Segment", ["All Segments"] + list(df["segment_name"].unique()), key="theme_seg_filter")
+    scoped_df = df if target_seg == "All Segments" else df[df["segment_name"] == target_seg]
     all_snippets = []
-    for f_list in df["feedback_history"]:
+    for f_list in scoped_df["feedback_history"]:
         all_snippets.extend(f_list)
-        
+
     s1, s2, s3, s4 = st.columns(4)
     with s1:
         render_metric_card("Analyzed Feedback Units", f"{len(all_snippets)}", "Active Corpus", "neutral")
     with s2:
         render_metric_card("Net Sentiment Score", "+42", "Moderately Positive", "positive")
     with s3:
-        render_metric_card("Top Friction Category", "Wire & Transfer Fees", "32% Mentions", "negative")
+        render_metric_card("Top Friction Category", "Renewal Premium Transparency", "32% Mentions", "negative")
     with s4:
         render_metric_card("LLM Topic Confidence", "98.4%", "Zero-Shot Extracted", "positive")
-        
+
     st.markdown("<div style='margin-top: 1rem;'></div>", unsafe_allow_html=True)
-    
+
     col_l, col_r = st.columns([1.1, 1.9])
-    
+
     with col_l:
         st.markdown(
-            """
+            f"""
             <div class="glass-container">
                 <div class="glass-header-glow"></div>
                 <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: #ffffff;">⚡ Theme Extraction Engine</h4>
-                <p style="color: #94a3b8; font-size: 0.85rem;">Run semantic clustering across unstructured customer commentary via xAI Grok LLM.</p>
+                <p style="color: #94a3b8; font-size: 0.85rem;">Run semantic clustering across unstructured customer commentary via xAI Grok LLM, scoped to <strong style="color: #67e8f9;">{target_seg}</strong>.</p>
             </div>
             """,
             unsafe_allow_html=True
         )
-        
-        target_seg = st.selectbox("Filter Feedback by Segment", ["All Segments"] + list(df["segment_name"].unique()))
-        
-        if st.button("🚀 Run LLM Thematic & Sentiment Extraction", type="primary", use_container_width=True):
+
+        if st.button("🚀 Run LLM Thematic & Sentiment Extraction", type="primary", use_container_width=True, disabled=len(all_snippets) == 0):
             with st.spinner("Analyzing text corpus with Grok LLM..."):
                 llm = st.session_state.llm_service
                 results = llm.extract_themes_llm(all_snippets[:30])
                 st.session_state.theme_results = results
+                st.session_state.theme_results_scope = target_seg
                 st.success("Thematic analysis compiled successfully!")
                 
         # Show recent text samples
@@ -70,7 +72,11 @@ def render_stage_05():
             )
             
     with col_r:
-        theme_data = st.session_state.get("theme_results", st.session_state.llm_service.extract_themes_llm(all_snippets[:20]))
+        cached_scope = st.session_state.get("theme_results_scope")
+        if "theme_results" in st.session_state and cached_scope == target_seg:
+            theme_data = st.session_state.theme_results
+        else:
+            theme_data = st.session_state.llm_service.extract_themes_llm(all_snippets[:20])
         
         st.markdown(
             """
@@ -101,7 +107,7 @@ def render_stage_05():
             st.markdown(
                 f"""
                 <div style="background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.25); border-radius: 12px; padding: 1rem; margin-bottom: 1rem;">
-                    <h5 style="margin: 0 0 0.5rem 0; color: #fda4af; font-size: 0.95rem; font-weight: 700;">🔴 Core Friction & Churn Triggers</h5>
+                    <h5 style="margin: 0 0 0.5rem 0; color: #fda4af; font-size: 0.95rem; font-weight: 700;">🔴 Core Friction & Lapse Triggers</h5>
                     {"".join([f'<div style="margin-bottom: 0.6rem; font-size: 0.85rem; color: #f8fafc;"><div style="font-weight: 600;">{t["theme"]}</div><span style="color: #fda4af; font-size: 0.75rem;">Frequency: {t["frequency"]} • Score: {t["sentiment_score"]*100:.0f}%</span></div>' for t in theme_data['top_negative_themes']])}
                 </div>
                 """,
