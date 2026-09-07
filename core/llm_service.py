@@ -164,19 +164,25 @@ class LLMService:
         }
 
     def _pick_variant(self, twin_profile: Optional[dict], category: str, variants: list) -> str:
-        """Rotates through a category's reply variants so the twin never says the exact same
-        line twice in a row. State is stashed on the twin's own profile dict, which is a
-        persistent object living in st.session_state.twin_store, so it survives across the
-        Streamlit reruns that happen between each chat turn."""
-        if len(variants) == 1:
-            return variants[0]
+        """Picks a reply variant, avoiding both an immediate repeat within the same
+        category and any line already used earlier in this conversation (even from a
+        different category — some phrasings share an opening clause and would read as
+        a repeat to the user even though they're technically different variants).
+        State is stashed on the twin's own profile dict, which is a persistent object
+        living in st.session_state.twin_store, so it survives across the Streamlit
+        reruns that happen between each chat turn."""
         if twin_profile is None:
             return random.choice(variants)
         state = twin_profile.setdefault("_sim_reply_state", {})
+        used_texts = twin_profile.setdefault("_sim_used_texts", set())
         last_idx = state.get(category, -1)
-        choices = [i for i in range(len(variants)) if i != last_idx] or list(range(len(variants)))
-        idx = random.choice(choices)
+
+        candidates = [i for i in range(len(variants)) if i != last_idx and variants[i] not in used_texts]
+        if not candidates:
+            candidates = [i for i in range(len(variants)) if i != last_idx] or list(range(len(variants)))
+        idx = random.choice(candidates)
         state[category] = idx
+        used_texts.add(variants[idx])
         return variants[idx]
 
     def _simulate_mock_twin_reply(self, messages: list, twin_profile: Optional[dict]) -> str:
@@ -252,6 +258,32 @@ class LLMService:
                 ]
             return self._pick_variant(twin_profile, "switch", variants)
 
+        word_count = len(lower_msg.split())
+        affirmation_words = ["yes", "yeah", "yep", "yup", "correct", "right", "confirmed", "absolutely", "exactly", "they are", "it is", "that's right", "indeed", "sure"]
+        negation_words = ["no", "nope", "not really", "not quite", "unfortunately not"]
+        if word_count <= 6 and (any(lower_msg == w or lower_msg.startswith(w) for w in affirmation_words) or any(lower_msg == w or lower_msg.startswith(w) for w in negation_words)):
+            is_affirmation = any(lower_msg == w or lower_msg.startswith(w) for w in affirmation_words)
+            if is_affirmation:
+                if turn_index >= 2:
+                    variants = [
+                        f"Good — that addresses the concern I had. What's the actual next step to get this in place?",
+                        f"Okay, that's reassuring to hear. Send me whatever paperwork actually needs my signature and I'll review it.",
+                        f"That helps. I still want everything in writing before this is final, but I'm leaning positive.",
+                    ]
+                else:
+                    variants = [
+                        f"Good to know. What else should I be aware of before I make a decision here?",
+                        f"Alright, that checks one box. What about the claims process itself — how does that actually work?",
+                        f"Okay. Is there anything about this that a policyholder like me typically gets caught off guard by later?",
+                    ]
+            else:
+                variants = [
+                    f"That's actually a concern for me. Can you walk me through why that's not covered?",
+                    f"Hmm, that's not what I was hoping to hear. What can you offer to make up for that gap?",
+                    f"Okay, good to know upfront at least. Does that affect the price at all?",
+                ]
+            return self._pick_variant(twin_profile, "affirmation", variants)
+
         if turn_index == 0 and any(k in lower_msg for k in ["hi", "hello", "hey", "pitch", "offer you", "introduce", "wanted to discuss", "want to pitch", "recommend", "propose", "bundle"]):
             variants = [
                 f"Given my background ({tone}), here is my take: "
@@ -275,11 +307,10 @@ class LLMService:
             return self._pick_variant(twin_profile, "closing", variants)
 
         variants = [
-            f"Given my background ({tone}), here is my take: I'm receptive, but you still haven't addressed my main concern — "
-            f"what happens to my current coverage during the transition?",
-            f"That's fair, but I need more specifics before I can react to it. What exactly changes for me day-to-day?",
+            f"That's fair, but I still haven't heard what happens to my current coverage during the transition. Can you address that directly?",
+            f"Okay, noted. I need more specifics before I can react to it, though — what exactly changes for me day-to-day?",
             f"I hear you, but as {persona_name} I tend to need proof, not promises. Can you give me a concrete example?",
-            f"Okay — and what's the catch? There's usually a catch with offers like this.",
+            f"Alright — and what's the catch? There's usually a catch with offers like this.",
         ]
         return self._pick_variant(twin_profile, "general", variants)
 
