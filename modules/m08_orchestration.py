@@ -61,7 +61,7 @@ def render_stage_08():
         twin = twin_store[selected_twin_id]
         
         preset_scenarios = [
-            "We are raising your auto policy premium by $15/month unless you increase your deductible to $1,500. How do you respond?",
+            "We are raising your auto policy premium by ₹1,418/month unless you increase your deductible to ₹1,41,750. How do you respond?",
             "Competitor InsurTech just launched a bundled auto + home policy with 20% lower premiums. Are you planning to switch carriers?",
             "We are launching an AI-powered usage-based auto insurance program with a 0.25% telematics discount. Would you enroll?",
             "Custom Scenario / Question"

@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
 from faker import Faker
+from core.currency import to_inr, format_inr
 
 fake = Faker()
 Faker.seed(42)
@@ -13,8 +14,8 @@ PRODUCT_CATALOG = [
     "Comprehensive Auto Insurance",
     "Homeowners Insurance (HO-3)",
     "Renters Insurance",
-    "Term Life Insurance ($500k)",
-    "Umbrella Liability Policy ($1M)",
+    "Term Life Insurance (₹4.72 Cr Cover)",
+    "Umbrella Liability Policy (₹9.45 Cr)",
     "Business Owners Policy (BOP)",
     "Pet Insurance Plan",
     "Travel Insurance Plan"
@@ -34,9 +35,9 @@ OCCUPATIONS = [
 ]
 
 CITIES = [
-    ("New York", "NY"), ("San Francisco", "CA"), ("Austin", "TX"),
-    ("Seattle", "WA"), ("Chicago", "IL"), ("Miami", "FL"),
-    ("Boston", "MA"), ("Denver", "CO"), ("Atlanta", "GA")
+    ("Mumbai", "MH"), ("Bangalore", "KA"), ("Delhi", "DL"),
+    ("Hyderabad", "TG"), ("Chennai", "TN"), ("Pune", "MH"),
+    ("Kolkata", "WB"), ("Ahmedabad", "GJ"), ("Jaipur", "RJ")
 ]
 
 INDIAN_FIRST_NAMES_MALE = [
@@ -66,7 +67,7 @@ FEEDBACK_SNIPPETS_POOL = [
     "Your competitor offers 20% lower premiums with the same coverage limits. Seriously considering switching at renewal.",
     "Received an unsolicited promotional email despite opting out. Privacy settings need fixing.",
     "The automated coverage gap insights helped me realize I was underinsured on my umbrella policy.",
-    "Claims rep Sarah was knowledgeable and resolved my dispute in 5 minutes.",
+    "Claims rep Priya was knowledgeable and resolved my dispute in 5 minutes.",
     "Hidden policy administration fee of 3% on my renewal is unacceptable."
 ]
 
@@ -81,7 +82,7 @@ def generate_synthetic_customers(n: int = 150) -> pd.DataFrame:
         last_name = random.choice(INDIAN_LAST_NAMES)
         full_name = f"{first_name} {last_name}"
         email = f"{first_name.lower()}.{last_name.lower()}@{fake.free_email_domain()}"
-        phone = f"+1 ({random.randint(200,999)}) {random.randint(200,999)}-{random.randint(1000,9999)}"
+        phone = f"+91 {random.randint(60000,99999)} {random.randint(10000,99999)}"
         city, state = random.choice(CITIES)
 
         age = int(np.random.normal(44, 14))
@@ -107,6 +108,11 @@ def generate_synthetic_customers(n: int = 150) -> pd.DataFrame:
         income = max(38000, income)
         insured_asset_value = max(15000, insured_asset_value)
         credit_score = max(580, min(850, credit_score))
+
+        # Convert to INR at the source so every downstream figure (premiums,
+        # twin profiles, prompts, UI) is consistently rupee-denominated.
+        income = int(to_inr(income))
+        insured_asset_value = int(to_inr(insured_asset_value))
 
         # Policy Holdings
         num_policies = min(len(PRODUCT_CATALOG), max(1, int(np.random.poisson(3.2))))
@@ -216,7 +222,7 @@ def generate_evidence_documents(customers_df: pd.DataFrame) -> list:
                 content = (
                     f"Customer {name} ({cust_id}) contacted representative regarding {random.choice(row['policies_held'])}. "
                     f"Customer expressed: '{random.choice(row['feedback_history'])}'. "
-                    f"Agent verified identity, reviewed annual premium of ${row['annual_premium']:,.2f}, and noted customer sensitivity to premium changes (Score: {row['price_sensitivity']}/10)."
+                    f"Agent verified identity, reviewed annual premium of {format_inr(row['annual_premium'], 2)}, and noted customer sensitivity to premium changes (Score: {row['price_sensitivity']}/10)."
                 )
             elif dtype == "Policy Contract & Rider":
                 title = f"Official Terms: {random.choice(row['policies_held'])} Schedule"
@@ -224,14 +230,14 @@ def generate_evidence_documents(customers_df: pd.DataFrame) -> list:
                 content = (
                     f"Policy Contract Reference {cust_id}-P. Policyholder: {name}. Policies bound: {', '.join(row['policies_held'])}. "
                     f"Standard state guaranty association limits apply. Lapse propensity index currently logged at {row['lapse_risk']*100:.1f}%. "
-                    f"Special Terms: Multi-policy bundle discount applies when 2+ policies are held, with deductible tiers based on insured asset value above $50,000 threshold."
+                    f"Special Terms: Multi-policy bundle discount applies when 2+ policies are held, with deductible tiers based on insured asset value above {format_inr(to_inr(50000))} threshold."
                 )
             elif dtype == "Policy Renewal & Coverage Review":
                 title = f"Agent Notes: Annual Coverage & Risk Audit ({date_str})"
                 sentiment = "Positive"
                 content = (
                     f"Agent consultation with {name}. Primary objective: coverage adequacy and claims protection. "
-                    f"Current Insured Asset Value logged at ${row['insured_asset_value']:,.2f}. Risk Profile: {row['risk_profile']}. Claims on file: {row['num_claims_filed']} ({row['last_claim_status']}). "
+                    f"Current Insured Asset Value logged at {format_inr(row['insured_asset_value'], 2)}. Risk Profile: {row['risk_profile']}. Claims on file: {row['num_claims_filed']} ({row['last_claim_status']}). "
                     f"Recommended raising umbrella liability limits and exploring bundled auto + home renewal discount."
                 )
             elif dtype == "Complaint Resolution Note":
@@ -239,7 +245,7 @@ def generate_evidence_documents(customers_df: pd.DataFrame) -> list:
                 sentiment = "Negative"
                 content = (
                     f"Case escalated to Senior Claims Ops. Customer {name} reported dissatisfaction with delayed claims adjuster response during a covered loss event. "
-                    f"Offered $50 goodwill service credit and verified two-factor authentication token settings on the policyholder portal. Customer accepted resolution."
+                    f"Offered {format_inr(to_inr(50))} goodwill service credit and verified two-factor authentication token settings on the policyholder portal. Customer accepted resolution."
                 )
             else:
                 title = "Claims / CSAT Pulse Survey Submission"

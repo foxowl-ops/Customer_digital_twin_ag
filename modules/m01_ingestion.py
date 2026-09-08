@@ -109,8 +109,8 @@ def render_stage_01():
                 column_config={
                     "customer_id": "Customer ID",
                     "name": "Customer Name",
-                    "annual_income": st.column_config.NumberColumn("Annual Income", format="$%d"),
-                    "annual_premium": st.column_config.NumberColumn("Annual Premium", format="$%d"),
+                    "annual_income": st.column_config.NumberColumn("Annual Income", format="₹%d"),
+                    "annual_premium": st.column_config.NumberColumn("Annual Premium", format="₹%d"),
                 }
             )
             

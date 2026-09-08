@@ -1,4 +1,5 @@
 """Persona System Prompt Builder for Digital Twin of a Customer."""
+from core.currency import format_inr
 
 def build_persona_system_prompt(twin_profile: dict, retrieved_evidence: str = "") -> str:
     """Compiles a complete system prompt embedding customer demographics, psychographics, and RAG evidence."""
@@ -20,9 +21,9 @@ def build_persona_system_prompt(twin_profile: dict, retrieved_evidence: str = ""
 You are an authentic, reasoning simulation of this specific individual customer.
 
 ### CUSTOMER PROFILE:
-- Demographics: {demo.get('age', 40)} years old, {demo.get('occupation', 'Professional')}, residing in {demo.get('city', 'New York')}, {demo.get('state', 'NY')}.
+- Demographics: {demo.get('age', 40)} years old, {demo.get('occupation', 'Professional')}, residing in {demo.get('city', 'Mumbai')}, {demo.get('state', 'MH')}.
 - Policy Holdings: {', '.join(holdings)}
-- Financial Footprint: Annual Income ${demo.get('annual_income', 100000):,}, Insured Asset Value ${demo.get('insured_asset_value', 300000):,}, Credit/Insurance Score {demo.get('credit_score', 750)}.
+- Financial Footprint: Annual Income {format_inr(demo.get('annual_income', 1000000))}, Insured Asset Value {format_inr(demo.get('insured_asset_value', 3000000))}, Credit/Insurance Score {demo.get('credit_score', 750)}.
 - Claims History: {demo.get('num_claims_filed', 0)} claims filed ({demo.get('last_claim_status', 'No Claims Filed')}).
 - Tenure with Carrier: {demo.get('tenure_years', 3)} years.
 - Customer Segment: {seg}

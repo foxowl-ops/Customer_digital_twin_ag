@@ -4,6 +4,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from components.glass_card import render_banner, render_metric_card
 from core.ml_segmentation import run_customer_segmentation
+from core.currency import format_inr
 from styles.theme import apply_plotly_theme
 
 def render_stage_04():
@@ -29,7 +30,7 @@ def render_stage_04():
                     <h4 style="margin: 0 0 0.25rem 0; font-size: 0.95rem; color: #ffffff;">{row['name']}</h4>
                     <span class="glass-badge badge-cyan" style="font-size: 0.72rem; margin-bottom: 0.5rem;">{row['share_pct']}% of Base ({row['size']} users)</span>
                     <div style="font-size: 0.8rem; color: #94a3b8; line-height: 1.4; margin-top: 0.35rem;">
-                        <strong>Avg Income:</strong> ${row['avg_income']:,.0f}<br/>
+                        <strong>Avg Income:</strong> {format_inr(row['avg_income'])}<br/>
                         <strong>Price Sens:</strong> {row['avg_price_sensitivity']}/10<br/>
                         <strong>Loyalty:</strong> {row['avg_brand_loyalty']}/10
                     </div>
@@ -107,7 +108,7 @@ def render_stage_04():
                 size="price_sensitivity",
                 hover_data=["customer_id", "name", "credit_score"],
                 color_discrete_sequence=["#6366f1", "#06b6d4", "#f59e0b", "#10b981", "#ec4899"],
-                labels={"annual_income": "Annual Income ($)", "annual_premium": "Total Annual Premium ($)"}
+                labels={"annual_income": "Annual Income (₹)", "annual_premium": "Total Annual Premium (₹)"}
             )
             fig.update_layout(height=440, legend=dict(orientation="h", yanchor="bottom", y=-0.2, xanchor="center", x=0.5))
             fig = apply_plotly_theme(fig)

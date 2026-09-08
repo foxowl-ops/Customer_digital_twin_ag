@@ -19,11 +19,11 @@ def render_stage_12():
             {
                 "id": "VAL-FG-001",
                 "type": "Synthetic Focus Group",
-                "target": "Platinum Shield Bundle ($25/mo add-on)",
+                "target": "Platinum Shield Bundle (₹2,362/mo add-on)",
                 "status": "APPROVED",
                 "score": 5,
                 "timestamp": "2026-08-24 10:30:15",
-                "reviewer": "Sarah_Compliance_Officer",
+                "reviewer": "Kavita_Compliance_Officer",
                 "notes": "Verified authentic representation of price-sensitive objections without regulatory breach.",
                 "flags": ["None"]
             },

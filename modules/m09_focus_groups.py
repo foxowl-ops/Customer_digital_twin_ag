@@ -63,8 +63,8 @@ def render_stage_09():
         st.markdown("#### 🎯 Focus Group Topic & Concept")
         
         preset_topics = [
-            "New 'Platinum Shield' Bundle at $25/mo extra with a dedicated human agent and guaranteed 24hr claims response",
-            "Eliminating paper policy documents and imposing a $5/mo fee for non-digital in-branch transactions",
+            "New 'Platinum Shield' Bundle at ₹2,362/mo extra with a dedicated human agent and guaranteed 24hr claims response",
+            "Eliminating paper policy documents and imposing a ₹472/mo fee for non-digital in-branch transactions",
             "Introducing automated AI usage-based discounts for everyday auto insurance policyholders",
             "Custom Concept / Question"
         ]
@@ -133,7 +133,7 @@ def render_stage_09():
                 "transcript": transcript,
                 "consensus": "Polarized reaction. Coverage-focused segments approve of the guaranteed response SLA, while price-sensitive segments reject the added monthly fee.",
                 "sentiment_distribution": {"Positive": 25, "Neutral": 25, "Negative": 50},
-                "recommendation": "Introduce a balance-waiver threshold (e.g. $25/mo waived for balances > $25k) to capture affluent demand without alienating price-sensitive cohorts."
+                "recommendation": "Introduce a balance-waiver threshold (e.g. ₹2,362/mo waived for balances > ₹23.6L) to capture affluent demand without alienating price-sensitive cohorts."
             }
             
             st.session_state.current_focus_group = synthesis
