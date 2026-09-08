@@ -60,13 +60,13 @@ def render_stage_06():
             st.markdown(
                 f"""
                 <div class="glass-container" style="padding: 1.1rem;">
-                    <h5 style="margin: 0 0 0.5rem 0; color: #67e8f9; font-size: 0.95rem;">🎯 Financial Goals & Priorities</h5>
-                    <ul style="margin: 0 0 1rem 0; padding-left: 1.2rem; color: #e2e8f0; font-size: 0.85rem; line-height: 1.6;">
+                    <h5 style="margin: 0 0 0.5rem 0; color: var(--accent-cyan-text); font-size: 0.95rem;">🎯 Financial Goals & Priorities</h5>
+                    <ul style="margin: 0 0 1rem 0; padding-left: 1.2rem; color: var(--text-body); font-size: 0.85rem; line-height: 1.6;">
                         {"".join([f'<li>{g}</li>' for g in psy.get('financial_goals', [])])}
                     </ul>
                     
-                    <h5 style="margin: 0 0 0.5rem 0; color: #fda4af; font-size: 0.95rem;">⛔ Critical Dealbreakers</h5>
-                    <ul style="margin: 0; padding-left: 1.2rem; color: #e2e8f0; font-size: 0.85rem; line-height: 1.6;">
+                    <h5 style="margin: 0 0 0.5rem 0; color: var(--accent-rose-text); font-size: 0.95rem;">⛔ Critical Dealbreakers</h5>
+                    <ul style="margin: 0; padding-left: 1.2rem; color: var(--text-body); font-size: 0.85rem; line-height: 1.6;">
                         {"".join([f'<li>{d}</li>' for d in psy.get('dealbreakers', [])])}
                     </ul>
                 </div>
@@ -77,11 +77,11 @@ def render_stage_06():
             st.markdown(
                 f"""
                 <div class="glass-container" style="padding: 1.1rem;">
-                    <h5 style="margin: 0 0 0.5rem 0; color: #a5b4fc; font-size: 0.95rem;">🗣️ Communication Tone & Style</h5>
-                    <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 1rem;">{voice.get('tone')}</p>
+                    <h5 style="margin: 0 0 0.5rem 0; color: var(--accent-indigo-text); font-size: 0.95rem;">🗣️ Communication Tone & Style</h5>
+                    <p style="color: var(--text-secondary-body); font-size: 0.85rem; margin-bottom: 1rem;">{voice.get('tone')}</p>
                     
-                    <h5 style="margin: 0 0 0.5rem 0; color: #6ee7b7; font-size: 0.95rem;">📱 Preferred Engagement Channel</h5>
-                    <p style="color: #cbd5e1; font-size: 0.85rem; margin: 0;">{voice.get('preferred_channel')}</p>
+                    <h5 style="margin: 0 0 0.5rem 0; color: var(--accent-emerald-text); font-size: 0.95rem;">📱 Preferred Engagement Channel</h5>
+                    <p style="color: var(--text-secondary-body); font-size: 0.85rem; margin: 0;">{voice.get('preferred_channel')}</p>
                 </div>
                 """,
                 unsafe_allow_html=True
@@ -90,10 +90,10 @@ def render_stage_06():
     with tab_prompt:
         st.markdown(
             f"""
-            <div class="glass-container" style="background: rgba(10, 15, 26, 0.75);">
+            <div class="glass-container" style="background: rgba(var(--surface-rgb), 0.75);">
                 <div class="glass-header-glow"></div>
-                <h5 style="margin: 0 0 0.5rem 0; color: #67e8f9; font-size: 0.95rem;">Active Generative Persona Prompt</h5>
-                <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 8px; color: #a5b4fc; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; white-space: pre-wrap;">{selected_twin.get('system_prompt_blueprint')}</pre>
+                <h5 style="margin: 0 0 0.5rem 0; color: var(--accent-cyan-text); font-size: 0.95rem;">Active Generative Persona Prompt</h5>
+                <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 8px; color: var(--accent-indigo-text); font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; white-space: pre-wrap;">{selected_twin.get('system_prompt_blueprint')}</pre>
             </div>
             """,
             unsafe_allow_html=True
@@ -104,12 +104,12 @@ def render_stage_06():
         for h in history:
             st.markdown(
                 f"""
-                <div style="background: rgba(17, 24, 39, 0.6); border-left: 3px solid #06b6d4; padding: 0.75rem 1rem; border-radius: 0 8px 8px 0; margin-bottom: 0.6rem;">
+                <div style="background: rgba(var(--surface-rgb), 0.6); border-left: 3px solid #06b6d4; padding: 0.75rem 1rem; border-radius: 0 8px 8px 0; margin-bottom: 0.6rem;">
                     <div style="display: flex; justify-content: space-between;">
-                        <strong style="color: #67e8f9;">Version {h.get('version')}</strong>
-                        <span style="color: #94a3b8; font-size: 0.8rem;">{h.get('timestamp')}</span>
+                        <strong style="color: var(--accent-cyan-text);">Version {h.get('version')}</strong>
+                        <span style="color: var(--text-muted); font-size: 0.8rem;">{h.get('timestamp')}</span>
                     </div>
-                    <p style="margin: 0.35rem 0 0 0; color: #e2e8f0; font-size: 0.85rem;">{h.get('notes')}</p>
+                    <p style="margin: 0.35rem 0 0 0; color: var(--text-body); font-size: 0.85rem;">{h.get('notes')}</p>
                 </div>
                 """,
                 unsafe_allow_html=True

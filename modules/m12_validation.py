@@ -64,8 +64,8 @@ def render_stage_12():
             """
             <div class="glass-container">
                 <div class="glass-header-glow"></div>
-                <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: #ffffff;">📋 Governance Audit Queue</h4>
-                <p style="color: #94a3b8; font-size: 0.85rem;">Select an item to inspect reasoning trace and record compliance approval.</p>
+                <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: var(--text-main);">📋 Governance Audit Queue</h4>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Select an item to inspect reasoning trace and record compliance approval.</p>
             </div>
             """,
             unsafe_allow_html=True
@@ -79,14 +79,14 @@ def render_stage_12():
         
         st.markdown(
             f"""
-            <div style="background: rgba(17, 24, 39, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 0.85rem; font-size: 0.83rem;">
+            <div style="background: rgba(var(--surface-rgb), 0.6); border: 1px solid rgba(var(--edge-rgb), 0.08); border-radius: 12px; padding: 0.85rem; font-size: 0.83rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                    <strong style="color: #67e8f9;">{selected_item['id']}</strong>
+                    <strong style="color: var(--accent-cyan-text);">{selected_item['id']}</strong>
                     <span class="glass-badge badge-{status_color}">{selected_item.get('status')}</span>
                 </div>
-                <div style="color: #cbd5e1;"><strong>Type:</strong> {selected_item.get('type')}</div>
-                <div style="color: #cbd5e1;"><strong>Target:</strong> {selected_item.get('target')}</div>
-                <div style="color: #94a3b8; font-size: 0.78rem; margin-top: 0.3rem;">Logged: {selected_item.get('timestamp')}</div>
+                <div style="color: var(--text-secondary-body);"><strong>Type:</strong> {selected_item.get('type')}</div>
+                <div style="color: var(--text-secondary-body);"><strong>Target:</strong> {selected_item.get('target')}</div>
+                <div style="color: var(--text-muted); font-size: 0.78rem; margin-top: 0.3rem;">Logged: {selected_item.get('timestamp')}</div>
             </div>
             """,
             unsafe_allow_html=True
@@ -130,7 +130,7 @@ def render_stage_12():
             <div class="glass-container">
                 <div class="glass-header-glow"></div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                    <h4 style="margin: 0; font-size: 1.1rem; color: #ffffff;">🔍 Simulation Trace & Evidence Inspector</h4>
+                    <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-main);">🔍 Simulation Trace & Evidence Inspector</h4>
                     <span class="glass-badge badge-indigo">Audit Record Details</span>
                 </div>
             </div>
@@ -144,12 +144,12 @@ def render_stage_12():
         else:
             st.markdown(
                 f"""
-                <div class="glass-container" style="background: rgba(17, 24, 39, 0.5);">
-                    <h5 style="margin: 0 0 0.5rem 0; color: #67e8f9;">Recorded Audit Context</h5>
-                    <p style="color: #cbd5e1; font-size: 0.88rem;"><strong>Simulation Target:</strong> {selected_item.get('target')}</p>
-                    <p style="color: #cbd5e1; font-size: 0.88rem;"><strong>Current Status:</strong> {selected_item.get('status')}</p>
-                    <p style="color: #cbd5e1; font-size: 0.88rem;"><strong>Reviewer:</strong> {selected_item.get('reviewer') or 'Unassigned'}</p>
-                    <p style="color: #cbd5e1; font-size: 0.88rem;"><strong>Notes:</strong> {selected_item.get('notes') or 'No notes logged yet.'}</p>
+                <div class="glass-container" style="background: rgba(var(--surface-rgb), 0.5);">
+                    <h5 style="margin: 0 0 0.5rem 0; color: var(--accent-cyan-text);">Recorded Audit Context</h5>
+                    <p style="color: var(--text-secondary-body); font-size: 0.88rem;"><strong>Simulation Target:</strong> {selected_item.get('target')}</p>
+                    <p style="color: var(--text-secondary-body); font-size: 0.88rem;"><strong>Current Status:</strong> {selected_item.get('status')}</p>
+                    <p style="color: var(--text-secondary-body); font-size: 0.88rem;"><strong>Reviewer:</strong> {selected_item.get('reviewer') or 'Unassigned'}</p>
+                    <p style="color: var(--text-secondary-body); font-size: 0.88rem;"><strong>Notes:</strong> {selected_item.get('notes') or 'No notes logged yet.'}</p>
                 </div>
                 """,
                 unsafe_allow_html=True

@@ -35,8 +35,8 @@ def render_stage_07():
             """
             <div class="glass-container">
                 <div class="glass-header-glow"></div>
-                <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: #ffffff;">🔍 Semantic Evidence Query</h4>
-                <p style="color: #94a3b8; font-size: 0.85rem;">Test semantic retrieval over historical interaction logs and policy terms.</p>
+                <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: var(--text-main);">🔍 Semantic Evidence Query</h4>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Test semantic retrieval over historical interaction logs and policy terms.</p>
             </div>
             """,
             unsafe_allow_html=True
@@ -68,7 +68,7 @@ def render_stage_07():
             <div class="glass-container">
                 <div class="glass-header-glow"></div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                    <h4 style="margin: 0; font-size: 1.1rem; color: #ffffff;">📄 Retrieved Grounding Evidence ({len(results)} Matches)</h4>
+                    <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-main);">📄 Retrieved Grounding Evidence ({len(results)} Matches)</h4>
                     <span class="glass-badge badge-indigo">Semantic Similarity</span>
                 </div>
             </div>
@@ -83,15 +83,15 @@ def render_stage_07():
                 
                 st.markdown(
                     f"""
-                    <div style="background: rgba(17, 24, 39, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 1rem; margin-bottom: 0.85rem;">
+                    <div style="background: rgba(var(--surface-rgb), 0.7); border: 1px solid rgba(var(--edge-rgb), 0.08); border-radius: 12px; padding: 1rem; margin-bottom: 0.85rem;">
                         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.35rem;">
                             <div>
-                                <strong style="color: #67e8f9; font-size: 0.95rem;">{r.get('title')}</strong>
-                                <div style="color: #94a3b8; font-size: 0.8rem;">{r.get('doc_type')} • Customer: {r.get('customer_name')} ({r.get('customer_id')}) • Date: {r.get('date')}</div>
+                                <strong style="color: var(--accent-cyan-text); font-size: 0.95rem;">{r.get('title')}</strong>
+                                <div style="color: var(--text-muted); font-size: 0.8rem;">{r.get('doc_type')} • Customer: {r.get('customer_name')} ({r.get('customer_id')}) • Date: {r.get('date')}</div>
                             </div>
                             <span class="glass-badge badge-{badge_type}">Match: {score_pct}%</span>
                         </div>
-                        <p style="margin: 0.5rem 0 0 0; color: #e2e8f0; font-size: 0.85rem; line-height: 1.5; background: rgba(0,0,0,0.25); padding: 0.6rem 0.85rem; border-radius: 6px;">
+                        <p style="margin: 0.5rem 0 0 0; color: var(--text-body); font-size: 0.85rem; line-height: 1.5; background: rgba(0,0,0,0.25); padding: 0.6rem 0.85rem; border-radius: 6px;">
                             {r.get('content')}
                         </p>
                     </div>

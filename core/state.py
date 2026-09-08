@@ -87,6 +87,9 @@ Respond in the first person ('I', 'me', 'my'). Speak authentically from this pol
 
 def init_session_state():
     """Initializes all state variables in st.session_state if not already present."""
+    if "theme" not in st.session_state:
+        st.session_state.theme = "dark"
+
     if "data_initialized" not in st.session_state:
         # Generate initial synthetic customer records
         customers_df = generate_synthetic_customers(150)

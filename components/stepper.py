@@ -24,7 +24,7 @@ def render_pipeline_stepper():
     current_idx = st.session_state.current_stage_idx
     
     # Render quick stage navigator pill buttons
-    st.markdown('<div style="margin-bottom: 0.5rem;"><span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; font-weight: 700;">Architecture Pipeline Stepper</span></div>', unsafe_allow_html=True)
+    st.markdown('<div style="margin-bottom: 0.5rem;"><span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 700;">Architecture Pipeline Stepper</span></div>', unsafe_allow_html=True)
     
     # We display a 13-stage scrollable bar or columns
     cols = st.columns([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
@@ -63,5 +63,5 @@ def render_pipeline_stepper():
             st.session_state.current_stage_idx += 1
             st.rerun()
     
-    st.markdown("<hr style='border: none; border-top: 1px solid rgba(255, 255, 255, 0.08); margin: 0.85rem 0 1.25rem 0;' />", unsafe_allow_html=True)
+    st.markdown("<hr style='border: none; border-top: 1px solid rgba(var(--edge-rgb), 0.08); margin: 0.85rem 0 1.25rem 0;' />", unsafe_allow_html=True)
     return active_stage

@@ -32,8 +32,8 @@ def render_stage_11():
             """
             <div class="glass-container">
                 <div class="glass-header-glow"></div>
-                <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: #ffffff;">🎭 Role-Play Target Persona</h4>
-                <p style="color: #94a3b8; font-size: 0.85rem;">Select your prospect persona and review their psychological profile.</p>
+                <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: var(--text-main);">🎭 Role-Play Target Persona</h4>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Select your prospect persona and review their psychological profile.</p>
             </div>
             """,
             unsafe_allow_html=True
@@ -48,11 +48,11 @@ def render_stage_11():
         
         st.markdown(
             f"""
-            <div style="background: rgba(17, 24, 39, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 0.85rem; font-size: 0.83rem; margin-bottom: 1rem;">
-                <div style="color: #67e8f9; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.25rem;">{twin['avatar_emoji']} {twin['customer_name']}</div>
-                <div style="color: #94a3b8; margin-bottom: 0.5rem;">{twin['headline']}</div>
-                <div style="color: #cbd5e1;"><strong>Tone:</strong> {twin['communication_voice']['tone']}</div>
-                <div style="color: #cbd5e1; margin-top: 0.25rem;"><strong>Skepticism:</strong> {twin['behavioral_weights']['skepticism']*10:.0f}/10 • <strong>Price Sens:</strong> {twin['behavioral_weights']['price_sensitivity']*10:.0f}/10</div>
+            <div style="background: rgba(var(--surface-rgb), 0.6); border: 1px solid rgba(var(--edge-rgb), 0.08); border-radius: 12px; padding: 0.85rem; font-size: 0.83rem; margin-bottom: 1rem;">
+                <div style="color: var(--accent-cyan-text); font-weight: 700; font-size: 0.9rem; margin-bottom: 0.25rem;">{twin['avatar_emoji']} {twin['customer_name']}</div>
+                <div style="color: var(--text-muted); margin-bottom: 0.5rem;">{twin['headline']}</div>
+                <div style="color: var(--text-secondary-body);"><strong>Tone:</strong> {twin['communication_voice']['tone']}</div>
+                <div style="color: var(--text-secondary-body); margin-top: 0.25rem;"><strong>Skepticism:</strong> {twin['behavioral_weights']['skepticism']*10:.0f}/10 • <strong>Price Sens:</strong> {twin['behavioral_weights']['price_sensitivity']*10:.0f}/10</div>
             </div>
             """,
             unsafe_allow_html=True
@@ -112,7 +112,7 @@ def render_stage_11():
             <div class="glass-container">
                 <div class="glass-header-glow"></div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                    <h4 style="margin: 0; font-size: 1.1rem; color: #ffffff;">💬 Live Sales Negotiation Stream</h4>
+                    <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-main);">💬 Live Sales Negotiation Stream</h4>
                     <span class="glass-badge badge-emerald">Interactive Multi-Turn</span>
                 </div>
             </div>
@@ -124,7 +124,7 @@ def render_stage_11():
         if not st.session_state.roleplay_messages:
             st.markdown(
                 f"""
-                <div style="text-align: center; padding: 2rem; color: #94a3b8;">
+                <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
                     <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🤝</div>
                     <p style="margin: 0;">Start the pitch by introducing your product offer to <strong>{twin['customer_name']}</strong> below.</p>
                 </div>
@@ -137,7 +137,7 @@ def render_stage_11():
                     st.markdown(
                         f"""
                         <div class="chat-bubble-user">
-                            <strong style="color: #c7d2fe; font-size: 0.85rem;">Sales Rep (You)</strong>
+                            <strong style="color: var(--accent-indigo-soft); font-size: 0.85rem;">Sales Rep (You)</strong>
                             <p style="margin: 0.25rem 0 0 0; font-size: 0.9rem;">{msg['content']}</p>
                         </div>
                         """,
@@ -147,7 +147,7 @@ def render_stage_11():
                     st.markdown(
                         f"""
                         <div class="chat-bubble-twin">
-                            <strong style="color: #67e8f9; font-size: 0.85rem;">{twin['avatar_emoji']} {twin['customer_name']}</strong>
+                            <strong style="color: var(--accent-cyan-text); font-size: 0.85rem;">{twin['avatar_emoji']} {twin['customer_name']}</strong>
                             <p style="margin: 0.25rem 0 0 0; font-size: 0.9rem;">{msg['content']}</p>
                         </div>
                         """,

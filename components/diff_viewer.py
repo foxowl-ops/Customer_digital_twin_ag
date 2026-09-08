@@ -1,7 +1,7 @@
 import textwrap
 import streamlit as st
 import plotly.graph_objects as go
-from styles.theme import apply_plotly_theme
+from styles.theme import apply_plotly_theme, get_chart_palette
 
 def render_version_diff_radar(v1_weights: dict, v2_weights: dict, v1_label: str = "v1.0", v2_label: str = "v2.0") -> go.Figure:
     """Renders an overlapping dual radar chart highlighting parameter drift between versions."""
@@ -42,11 +42,12 @@ def render_version_diff_radar(v1_weights: dict, v2_weights: dict, v1_label: str 
         name=f"Recalibrated ({v2_label})"
     ))
     
+    _p = get_chart_palette()
     fig.update_layout(
         polar=dict(
-            radialaxis=dict(visible=True, range=[0, 10], gridcolor="rgba(255, 255, 255, 0.1)"),
-            angularaxis=dict(gridcolor="rgba(255, 255, 255, 0.1)", tickfont=dict(color="#f8fafc", size=10)),
-            bgcolor="rgba(17, 24, 39, 0.2)"
+            radialaxis=dict(visible=True, range=[0, 10], gridcolor=_p["grid"]),
+            angularaxis=dict(gridcolor=_p["grid"], tickfont=dict(color=_p["font"], size=10)),
+            bgcolor=_p["scene_bg"]
         ),
         margin=dict(l=30, r=30, t=30, b=30),
         height=320,
@@ -71,10 +72,10 @@ def render_diff_table(v1_profile: dict, v2_profile: dict):
         delta_color = "#10b981" if delta > 0 else ("#f43f5e" if delta < 0 else "#94a3b8")
         
         rows_html += f"""
-        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
-            <td style="padding: 0.6rem 0.75rem; color: #f8fafc; font-weight: 600;">{k.replace('_', ' ').title()}</td>
-            <td style="padding: 0.6rem 0.75rem; color: #94a3b8;">{v1_val*10:.1f} / 10</td>
-            <td style="padding: 0.6rem 0.75rem; color: #67e8f9; font-weight: 700;">{v2_val*10:.1f} / 10</td>
+        <tr style="border-bottom: 1px solid rgba(var(--edge-rgb), 0.06);">
+            <td style="padding: 0.6rem 0.75rem; color: var(--text-main); font-weight: 600;">{k.replace('_', ' ').title()}</td>
+            <td style="padding: 0.6rem 0.75rem; color: var(--text-muted);">{v1_val*10:.1f} / 10</td>
+            <td style="padding: 0.6rem 0.75rem; color: var(--accent-cyan-text); font-weight: 700;">{v2_val*10:.1f} / 10</td>
             <td style="padding: 0.6rem 0.75rem; color: {delta_color}; font-weight: 700;">{delta_str}</td>
         </tr>
         """
@@ -83,7 +84,7 @@ def render_diff_table(v1_profile: dict, v2_profile: dict):
     <div class="glass-container" style="padding: 0.75rem;">
         <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
             <thead>
-                <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.12); color: #94a3b8; text-transform: uppercase; font-size: 0.75rem; text-align: left;">
+                <tr style="border-bottom: 1px solid rgba(var(--edge-rgb), 0.12); color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem; text-align: left;">
                     <th style="padding: 0.5rem 0.75rem;">Parameter</th>
                     <th style="padding: 0.5rem 0.75rem;">Baseline ({v1_profile.get('version', 'v1.0')})</th>
                     <th style="padding: 0.5rem 0.75rem;">New ({v2_profile.get('version', 'v2.0')})</th>

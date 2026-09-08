@@ -1,9 +1,10 @@
 import os
 import streamlit as st
+import streamlit.components.v1 as components
 import plotly.graph_objects as go
 import plotly.express as px
 
-# Theme Colors
+# Theme Colors (dark-mode reference palette; kept for backwards compatibility)
 THEME = {
     "bg_dark": "#090d16",
     "bg_card": "rgba(17, 24, 39, 0.65)",
@@ -62,30 +63,82 @@ def inject_custom_css():
             unsafe_allow_html=True,
         )
 
+def inject_theme_attribute():
+    """Stamps the active light/dark theme onto <html data-theme="..."> so
+    liquid_glass.css's [data-theme="light"] rules can take over.
+
+    Streamlit's own `<style>` injection (via st.markdown) can't set an
+    attribute on an ancestor element it doesn't itself render, and a plain
+    <script> tag inserted through unsafe_allow_html is inert (scripts
+    added via innerHTML never execute in browsers). st.components.v1.html
+    renders in a real iframe whose script *does* execute, and since that
+    iframe is same-origin we can reach back into window.parent.document.
+    """
+    theme = st.session_state.get("theme", "dark")
+    components.html(
+        f"""
+        <script>
+            const doc = window.parent.document;
+            doc.documentElement.setAttribute('data-theme', '{theme}');
+        </script>
+        """,
+        height=0,
+    )
+
+def _current_theme() -> str:
+    return st.session_state.get("theme", "dark")
+
+def get_chart_palette() -> dict:
+    """Returns the Plotly-facing color set for the active theme. Plotly
+    renders its own SVG/canvas and has no notion of CSS custom properties,
+    so unlike the HTML components, its colors have to be picked in Python."""
+    if _current_theme() == "light":
+        return {
+            "grid": "rgba(15, 23, 42, 0.08)",
+            "zeroline": "rgba(15, 23, 42, 0.16)",
+            "font": "#0f172a",
+            "tick": "#475569",
+            "plot_bg": "rgba(255, 255, 255, 0.55)",
+            "legend_bg": "rgba(255, 255, 255, 0.88)",
+            "legend_border": "rgba(15, 23, 42, 0.1)",
+            "scene_bg": "rgba(226, 232, 240, 0.55)",
+        }
+    return {
+        "grid": "rgba(255, 255, 255, 0.06)",
+        "zeroline": "rgba(255, 255, 255, 0.1)",
+        "font": "#f8fafc",
+        "tick": "#94a3b8",
+        "plot_bg": "rgba(17, 24, 39, 0.35)",
+        "legend_bg": "rgba(17, 24, 39, 0.65)",
+        "legend_border": "rgba(255, 255, 255, 0.08)",
+        "scene_bg": "rgba(17, 24, 39, 0.3)",
+    }
+
 def apply_plotly_theme(fig: go.Figure) -> go.Figure:
-    """Applies modern obsidian glass aesthetics to a Plotly figure."""
+    """Applies theme-matched (light or dark) glass aesthetics to a Plotly figure."""
+    p = get_chart_palette()
     fig.update_layout(
-        paper_bgcolor="rgba(17, 24, 39, 0.0)",
-        plot_bgcolor="rgba(17, 24, 39, 0.35)",
-        font=dict(family="Plus Jakarta Sans, sans-serif", color="#f8fafc", size=12),
+        paper_bgcolor="rgba(0, 0, 0, 0.0)",
+        plot_bgcolor=p["plot_bg"],
+        font=dict(family="Plus Jakarta Sans, sans-serif", color=p["font"], size=12),
         margin=dict(l=40, r=40, t=50, b=40),
         xaxis=dict(
-            gridcolor="rgba(255, 255, 255, 0.06)",
-            zerolinecolor="rgba(255, 255, 255, 0.1)",
-            tickfont=dict(color="#94a3b8"),
-            title_font=dict(color="#f8fafc", size=13),
+            gridcolor=p["grid"],
+            zerolinecolor=p["zeroline"],
+            tickfont=dict(color=p["tick"]),
+            title_font=dict(color=p["font"], size=13),
         ),
         yaxis=dict(
-            gridcolor="rgba(255, 255, 255, 0.06)",
-            zerolinecolor="rgba(255, 255, 255, 0.1)",
-            tickfont=dict(color="#94a3b8"),
-            title_font=dict(color="#f8fafc", size=13),
+            gridcolor=p["grid"],
+            zerolinecolor=p["zeroline"],
+            tickfont=dict(color=p["tick"]),
+            title_font=dict(color=p["font"], size=13),
         ),
         legend=dict(
-            bgcolor="rgba(17, 24, 39, 0.65)",
-            bordercolor="rgba(255, 255, 255, 0.08)",
+            bgcolor=p["legend_bg"],
+            bordercolor=p["legend_border"],
             borderwidth=1,
-            font=dict(color="#f8fafc"),
+            font=dict(color=p["font"]),
         ),
     )
     return fig

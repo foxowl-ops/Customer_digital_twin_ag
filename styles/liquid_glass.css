@@ -3,12 +3,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
+  /* Dark theme (default) */
   --bg-dark: #090d16;
   --bg-card: rgba(17, 24, 39, 0.65);
   --bg-card-hover: rgba(24, 33, 53, 0.75);
   --bg-glass-active: rgba(37, 50, 78, 0.75);
   --border-glass: rgba(255, 255, 255, 0.08);
   --border-glass-glow: rgba(99, 102, 241, 0.4);
+  --edge-rgb: 255, 255, 255;
+  --surface-rgb: 17, 24, 39;
   --accent-cyan: #06b6d4;
   --accent-indigo: #6366f1;
   --accent-violet: #8b5cf6;
@@ -16,13 +19,54 @@
   --accent-emerald: #10b981;
   --accent-amber: #f59e0b;
   --accent-rose: #f43f5e;
+  --accent-cyan-text: #67e8f9;
+  --accent-indigo-text: #a5b4fc;
+  --accent-emerald-text: #6ee7b7;
+  --accent-amber-text: #fcd34d;
+  --accent-rose-text: #fda4af;
+  --accent-indigo-soft: #c7d2fe;
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
   --text-dim: #64748b;
+  --text-body: #e2e8f0;
+  --text-secondary-body: #cbd5e1;
+  --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.45), 0 0 1px 1px rgba(255, 255, 255, 0.04) inset;
+  --shadow-card-hover: 0 14px 36px -4px rgba(0, 0, 0, 0.55), 0 0 12px 1px rgba(99, 102, 241, 0.15);
   --radius-lg: 16px;
   --radius-md: 12px;
   --radius-sm: 8px;
   --blur-strength: 16px;
+}
+
+/* Light theme overrides — everything below is a straight re-pairing of
+   surface/text tokens for AA-safe contrast on a light background. Accent
+   hues (--accent-cyan, --accent-indigo, etc.) are intentionally left
+   unchanged: they're used at full saturation for icons, active borders,
+   and chart marks, and read fine on both a near-black and a near-white
+   surface. Only the *-text variants (badge/heading text) get darkened —
+   the pastel dark-mode tints (e.g. #67e8f9) would fail contrast on white. */
+:root[data-theme="light"] {
+  --bg-dark: #eef2f9;
+  --bg-card: rgba(255, 255, 255, 0.72);
+  --bg-card-hover: rgba(255, 255, 255, 0.9);
+  --bg-glass-active: rgba(255, 255, 255, 0.97);
+  --border-glass: rgba(15, 23, 42, 0.09);
+  --border-glass-glow: rgba(99, 102, 241, 0.35);
+  --edge-rgb: 15, 23, 42;
+  --surface-rgb: 255, 255, 255;
+  --accent-cyan-text: #0e7490;
+  --accent-indigo-text: #4338ca;
+  --accent-emerald-text: #047857;
+  --accent-amber-text: #b45309;
+  --accent-rose-text: #be123c;
+  --accent-indigo-soft: #4338ca;
+  --text-main: #0f172a;
+  --text-muted: #334155;
+  --text-dim: #64748b;
+  --text-body: #1e293b;
+  --text-secondary-body: #334155;
+  --shadow-card: 0 8px 24px -6px rgba(15, 23, 42, 0.12), 0 0 1px 1px rgba(255, 255, 255, 0.6) inset;
+  --shadow-card-hover: 0 12px 30px -6px rgba(15, 23, 42, 0.16), 0 0 12px 1px rgba(99, 102, 241, 0.12);
 }
 
 /* Streamlit Global Overrides */
@@ -34,6 +78,13 @@
   background-attachment: fixed !important;
   color: var(--text-main) !important;
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+:root[data-theme="light"] .stApp {
+  background: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
+              radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.07) 0%, transparent 45%),
+              radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
+              linear-gradient(145deg, #f8fafc 0%, #eef2f9 50%, #e9eef7 100%) !important;
 }
 
 /* Header & Typography */
@@ -52,7 +103,7 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.45), 0 0 1px 1px rgba(255, 255, 255, 0.04) inset;
+  box-shadow: var(--shadow-card);
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   margin-bottom: 1.25rem;
   position: relative;
@@ -61,8 +112,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .glass-container:hover {
   background: var(--bg-card-hover);
-  border-color: rgba(255, 255, 255, 0.14);
-  box-shadow: 0 14px 36px -4px rgba(0, 0, 0, 0.55), 0 0 12px 1px rgba(99, 102, 241, 0.15);
+  border-color: rgba(var(--edge-rgb), 0.14);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .glass-header-glow {
@@ -76,10 +127,10 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Metric / Stat Card */
 .glass-stat-card {
-  background: rgba(17, 24, 39, 0.55);
+  background: rgba(var(--surface-rgb), 0.55);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(var(--edge-rgb), 0.07);
   border-radius: var(--radius-md);
   padding: 1.1rem 1.25rem;
   position: relative;
@@ -103,7 +154,7 @@ h1, h2, h3, h4, h5, h6 {
 .stat-value {
   font-size: 1.75rem;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--text-main);
   letter-spacing: -0.03em;
   line-height: 1.2;
 }
@@ -136,31 +187,31 @@ h1, h2, h3, h4, h5, h6 {
 
 .badge-indigo {
   background: rgba(99, 102, 241, 0.15);
-  color: #a5b4fc;
+  color: var(--accent-indigo-text);
   border-color: rgba(99, 102, 241, 0.3);
 }
 
 .badge-cyan {
   background: rgba(6, 182, 212, 0.15);
-  color: #67e8f9;
+  color: var(--accent-cyan-text);
   border-color: rgba(6, 182, 212, 0.3);
 }
 
 .badge-emerald {
   background: rgba(16, 185, 129, 0.15);
-  color: #6ee7b7;
+  color: var(--accent-emerald-text);
   border-color: rgba(16, 185, 129, 0.3);
 }
 
 .badge-amber {
   background: rgba(245, 158, 11, 0.15);
-  color: #fcd34d;
+  color: var(--accent-amber-text);
   border-color: rgba(245, 158, 11, 0.3);
 }
 
 .badge-rose {
   background: rgba(244, 63, 94, 0.15);
-  color: #fda4af;
+  color: var(--accent-rose-text);
   border-color: rgba(244, 63, 94, 0.3);
 }
 
@@ -181,8 +232,8 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   gap: 0.6rem;
   padding: 0.6rem 0.95rem;
-  background: rgba(17, 24, 39, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(var(--surface-rgb), 0.5);
+  border: 1px solid rgba(var(--edge-rgb), 0.06);
   border-radius: var(--radius-md);
   color: var(--text-muted);
   font-size: 0.82rem;
@@ -193,7 +244,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .stepper-item:hover {
-  background: rgba(30, 41, 59, 0.7);
+  background: rgba(var(--surface-rgb), 0.7);
   border-color: rgba(99, 102, 241, 0.3);
   color: var(--text-main);
   transform: translateY(-1px);
@@ -202,7 +253,7 @@ h1, h2, h3, h4, h5, h6 {
 .stepper-item.active {
   background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(6, 182, 212, 0.25));
   border-color: var(--accent-cyan);
-  color: #ffffff;
+  color: var(--text-main);
   box-shadow: 0 0 16px rgba(6, 182, 212, 0.25);
 }
 
@@ -210,7 +261,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(var(--edge-rgb), 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -220,7 +271,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .stepper-item.active .stepper-num {
   background: var(--accent-cyan);
-  color: #090d16;
+  color: #04141a;
 }
 
 /* Chat & Role-play Bubbles */
@@ -231,22 +282,22 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0.9rem 1.15rem;
   margin-left: auto;
   max-width: 80%;
-  color: #ffffff;
+  color: var(--text-main);
   margin-bottom: 0.85rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .chat-bubble-twin {
-  background: rgba(30, 41, 59, 0.65);
+  background: rgba(var(--surface-rgb), 0.65);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(6, 182, 212, 0.3);
   border-radius: 14px 14px 14px 2px;
   padding: 0.9rem 1.15rem;
   margin-right: auto;
   max-width: 85%;
-  color: #f1f5f9;
+  color: var(--text-body);
   margin-bottom: 0.85rem;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 }
 
 /* Custom Scrollbars */
@@ -255,10 +306,10 @@ h1, h2, h3, h4, h5, h6 {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(10, 15, 26, 0.4);
+  background: rgba(var(--surface-rgb), 0.4);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(var(--edge-rgb), 0.18);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -295,9 +346,37 @@ header[data-testid="stHeader"] {
   background: transparent !important;
 }
 
+/* Streamlit bakes several native components' text color directly from the
+   static .streamlit/config.toml theme (which can't itself change at
+   runtime), so on their own they ignore our live light/dark toggle even
+   though we're inheriting through .stApp correctly everywhere else.
+   Force the common native text-bearing elements to follow our variable
+   instead. (st.dataframe's grid is a canvas — glide-data-grid — so its
+   cell text genuinely can't be reached from CSS; that one stays on
+   Streamlit's own dark rendering regardless of theme.) */
+[data-testid="stWidgetLabel"] p,
+[data-testid="stWidgetLabel"] span,
+[data-testid="stCaptionContainer"],
+[data-testid="stAlert"] p,
+[data-testid="stAlert"] div,
+[data-testid="stJson"] {
+  color: var(--text-main) !important;
+}
+
+/* Plain st.markdown() text (module drilldowns, version history, etc.) needs
+   the same fix — but many glass-card blocks are also st.markdown() calls
+   that already set their own intentional inline color (e.g. var(--text-muted)
+   for secondary copy). Only force elements that don't already carry one. */
+[data-testid="stMarkdownContainer"] p:not([style*="color"]),
+[data-testid="stMarkdownContainer"] li:not([style*="color"]),
+[data-testid="stMarkdownContainer"] strong:not([style*="color"]),
+[data-testid="stMarkdownContainer"] em:not([style*="color"]) {
+  color: var(--text-main) !important;
+}
+
 /* Sidebar */
 [data-testid="stSidebar"] {
-  background: linear-gradient(180deg, rgba(9, 13, 22, 0.92), rgba(12, 17, 29, 0.96)) !important;
+  background: linear-gradient(180deg, rgba(var(--surface-rgb), 0.92), rgba(var(--surface-rgb), 0.97)) !important;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-right: 1px solid var(--border-glass);
@@ -311,7 +390,7 @@ header[data-testid="stHeader"] {
 .stButton > button,
 [data-testid^="stBaseButton"],
 button[data-baseweb="button"] {
-  background: rgba(255, 255, 255, 0.05) !important;
+  background: rgba(var(--edge-rgb), 0.06) !important;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--border-glass) !important;
@@ -319,7 +398,7 @@ button[data-baseweb="button"] {
   border-radius: var(--radius-sm) !important;
   font-weight: 600 !important;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
 }
 
 .stButton > button:hover,
@@ -327,9 +406,9 @@ button[data-baseweb="button"] {
 button[data-baseweb="button"]:hover {
   background: rgba(99, 102, 241, 0.18) !important;
   border-color: rgba(99, 102, 241, 0.55) !important;
-  color: #ffffff !important;
+  color: var(--text-main) !important;
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.25);
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.22);
 }
 
 [data-testid^="stBaseButton"][kind="primary"],
@@ -359,7 +438,7 @@ button[data-baseweb="button"]:hover {
 [data-testid="stTextArea"] textarea,
 [data-testid="stNumberInput"] input,
 [data-testid="stChatInput"] textarea {
-  background: rgba(10, 15, 26, 0.55) !important;
+  background: rgba(var(--surface-rgb), 0.55) !important;
   backdrop-filter: blur(8px);
   border: 1px solid var(--border-glass) !important;
   border-radius: var(--radius-sm) !important;
@@ -373,31 +452,65 @@ button[data-baseweb="button"]:hover {
   box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.2) !important;
 }
 
-/* Select boxes & multiselect (BaseWeb) */
-[data-testid="stSelectbox"] div[data-baseweb="select"] > div,
-[data-testid="stMultiSelect"] div[data-baseweb="select"] > div {
-  background: rgba(10, 15, 26, 0.55) !important;
+/* Select boxes & multiselect. Streamlit's combobox widgets are built on
+   React Aria Components (react-aria-ComboBox), not the older BaseWeb
+   `data-baseweb="select"` markup — style the stable ARIA role="group"
+   wrapper as the visible "box" and let the input itself sit transparent
+   on top of it, since which element actually paints the background can
+   shift between Streamlit versions. */
+[data-testid="stSelectbox"] [role="group"],
+[data-testid="stMultiSelect"] [role="group"] {
+  background: rgba(var(--surface-rgb), 0.55) !important;
   backdrop-filter: blur(8px);
   border: 1px solid var(--border-glass) !important;
   border-radius: var(--radius-sm) !important;
-  color: var(--text-main) !important;
+  transition: border-color 0.2s ease;
 }
 
-[data-testid="stSelectbox"] div[data-baseweb="select"]:focus-within > div,
-[data-testid="stMultiSelect"] div[data-baseweb="select"]:focus-within > div {
+[data-testid="stSelectbox"] [role="group"]:focus-within,
+[data-testid="stMultiSelect"] [role="group"]:focus-within {
   border-color: var(--accent-cyan) !important;
 }
 
-div[data-baseweb="popover"] ul,
-div[data-baseweb="menu"] {
-  background: rgba(17, 24, 39, 0.96) !important;
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--border-glass) !important;
+[data-testid="stSelectbox"] input[role="combobox"],
+[data-testid="stMultiSelect"] input[role="combobox"] {
+  background: transparent !important;
+  color: var(--text-main) !important;
 }
 
-[data-testid="stMultiSelect"] span[data-baseweb="tag"] {
+[data-testid="stSelectbox"] button[aria-label="Open"],
+[data-testid="stMultiSelect"] button[aria-label="Open"] {
+  color: var(--text-muted) !important;
+}
+
+/* Dropdown listbox popover (also React Aria: role="listbox"/"option",
+   not data-baseweb) */
+[role="listbox"] {
+  background: rgba(var(--surface-rgb), 0.98) !important;
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass) !important;
+  border-radius: var(--radius-md) !important;
+  overflow: hidden;
+}
+
+[role="listbox"] [role="option"] {
+  color: var(--text-main) !important;
+}
+
+[role="option"][aria-selected="true"] {
+  background: rgba(99, 102, 241, 0.18) !important;
+}
+
+[role="option"]:hover,
+[role="option"][data-focused="true"] {
+  background: rgba(99, 102, 241, 0.1) !important;
+}
+
+[data-testid="stMultiSelect"] span[data-baseweb="tag"],
+[data-testid="stMultiSelect"] [role="group"] > div > div[data-rac] {
   background: rgba(99, 102, 241, 0.25) !important;
   border: 1px solid rgba(99, 102, 241, 0.4) !important;
+  color: var(--text-main) !important;
 }
 
 /* Sliders */
@@ -417,7 +530,7 @@ div[data-baseweb="menu"] {
 }
 
 [data-testid="stTabs"] button[data-baseweb="tab"] {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(var(--edge-rgb), 0.03);
   border-radius: var(--radius-sm) var(--radius-sm) 0 0;
   color: var(--text-muted) !important;
   transition: all 0.2s ease;
@@ -430,7 +543,7 @@ div[data-baseweb="menu"] {
 
 [data-testid="stTabs"] button[aria-selected="true"] {
   background: rgba(99, 102, 241, 0.16);
-  color: #ffffff !important;
+  color: var(--text-main) !important;
 }
 
 [data-testid="stTabs"] div[data-baseweb="tab-highlight"] {
@@ -471,12 +584,12 @@ input[type="checkbox"] {
 }
 
 [data-testid="stRadio"] label span:first-child {
-  border-color: rgba(255, 255, 255, 0.25) !important;
+  border-color: rgba(var(--edge-rgb), 0.3) !important;
 }
 
 /* Forms */
 [data-testid="stForm"] {
-  background: rgba(17, 24, 39, 0.35);
+  background: rgba(var(--surface-rgb), 0.35);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-md);
   padding: 1rem;
@@ -496,9 +609,13 @@ input[type="checkbox"] {
 
 /* Metric / code blocks */
 [data-testid="stCodeBlock"] pre {
-  background: rgba(6, 9, 16, 0.75) !important;
+  background: rgba(var(--surface-rgb), 0.85) !important;
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-sm);
+}
+
+[data-testid="stCodeBlock"] pre, [data-testid="stCodeBlock"] code {
+  color: var(--text-body) !important;
 }
 
 /* Subtle fade-in for stage content on rerun */
@@ -509,6 +626,17 @@ input[type="checkbox"] {
 @keyframes glassFadeIn {
   from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hover tooltips (e.g. the stepper's "Stage N: Title" popup) render in a
+   portal outside our normal flow and default to Streamlit's static config
+   theme like the other native components above. */
+[data-testid="stTooltipContent"],
+[role="tooltip"] {
+  background: rgba(var(--surface-rgb), 0.98) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border-glass) !important;
+  border-radius: var(--radius-sm) !important;
 }
 
 /* Focus outline consistency */
