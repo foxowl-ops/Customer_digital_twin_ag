@@ -30,10 +30,10 @@ def render_stage_10():
                     <span class="glass-badge badge-indigo">Incumbent</span>
                 </div>
                 <ul style="margin: 0; padding-left: 1.2rem; color: #e2e8f0; font-size: 0.85rem; line-height: 1.6;">
-                    <li><strong>Auto + Home Bundle Premium:</strong> $185/mo baseline</li>
-                    <li><strong>Policy Fee:</strong> $0 with 2+ bundled policies ($12/mo otherwise)</li>
+                    <li><strong>Auto + Home Bundle Premium:</strong> ₹17,482/mo baseline</li>
+                    <li><strong>Policy Fee:</strong> ₹0 with 2+ bundled policies (₹1,134/mo otherwise)</li>
                     <li><strong>Claims Response SLA:</strong> 48hr Domestic / 72hr Out-of-State</li>
-                    <li><strong>Advisory:</strong> Dedicated Human Agent for insured asset value > $250k</li>
+                    <li><strong>Advisory:</strong> Dedicated Human Agent for insured asset value > ₹2.36 Cr</li>
                 </ul>
             </div>
             """,
@@ -55,10 +55,10 @@ def render_stage_10():
         )
 
         comp_discount = st.slider("Competitor Premium Discount (%)", 0.0, 30.0, 20.0, 1.0)
-        comp_fee = st.selectbox("Competitor Policy Fee", ["Zero Fees (bundled policies)", "$5/mo Flat", "Tiered"])
+        comp_fee = st.selectbox("Competitor Policy Fee", ["Zero Fees (bundled policies)", "₹472/mo Flat", "Tiered"])
         comp_perk = st.selectbox("Competitor Value Hook", [
             "Instant Digital First-Notice-of-Loss Claims",
-            "$300 Cash Switcher Bonus",
+            "₹28,350 Cash Switcher Bonus",
             "Usage-Based Telematics Discount",
             "Zero Deductible on First Claim"
         ])

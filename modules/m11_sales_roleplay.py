@@ -59,10 +59,10 @@ def render_stage_11():
         )
         
         product_pitch_type = st.selectbox("Policy You Are Pitching", [
-            "Umbrella Liability Policy ($1M coverage, $15/mo add-on)",
+            "Umbrella Liability Policy (₹9.45 Cr coverage, ₹1,418/mo add-on)",
             "Multi-Policy Bundle (Auto + Home, 20% bundle discount)",
-            "Business Owners Policy ($250k liability + property coverage)",
-            "Term Life Insurance ($1.5M with accelerated underwriting)"
+            "Business Owners Policy (₹2.36 Cr liability + property coverage)",
+            "Term Life Insurance (₹14.18 Cr with accelerated underwriting)"
         ])
         
         if st.button("🔄 Reset Roleplay Session", use_container_width=True):

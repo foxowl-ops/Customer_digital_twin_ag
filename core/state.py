@@ -4,6 +4,7 @@ from core.data_gen import generate_synthetic_customers, generate_evidence_docume
 from core.ml_segmentation import run_customer_segmentation
 from core.rag_engine import InMemoryRAGEngine
 from core.llm_service import LLMService
+from core.currency import format_inr
 
 def build_default_twin_profile(cust_row: pd.Series, version: str = "v1.0") -> dict:
     """Constructs a structured DigitalTwinProfile record from a policyholder row."""
@@ -23,7 +24,7 @@ def build_default_twin_profile(cust_row: pd.Series, version: str = "v1.0") -> di
     system_prompt = f"""You are acting as the Generative Digital Twin of {name} ({cust_id}).
 You are a real policyholder with the following persona profile:
 - Age: {cust_row['age']}, Occupation: {cust_row['occupation']}, Location: {cust_row['city']}, {cust_row['state']}
-- Annual Income: ${cust_row['annual_income']:,}, Insured Asset Value: ${cust_row['insured_asset_value']:,}, Annual Premium: ${cust_row['annual_premium']:,}
+- Annual Income: {format_inr(cust_row['annual_income'])}, Insured Asset Value: {format_inr(cust_row['insured_asset_value'])}, Annual Premium: {format_inr(cust_row['annual_premium'])}
 - Customer Segment: {seg_name} ({seg_id})
 - Policy Holdings: {', '.join(cust_row['policies_held'])}
 - Claims History: {cust_row['num_claims_filed']} claims filed ({cust_row['last_claim_status']})
@@ -42,7 +43,7 @@ Respond in the first person ('I', 'me', 'my'). Speak authentically from this pol
         "version": version,
         "avatar_emoji": avatar,
         "persona_name": f"{name} ({seg_name})",
-        "headline": f"{cust_row['occupation']} • {cust_row['age']} y/o • ${cust_row['annual_premium']:,.0f}/yr premium",
+        "headline": f"{cust_row['occupation']} • {cust_row['age']} y/o • {format_inr(cust_row['annual_premium'])}/yr premium",
         "demographics": {
             "age": cust_row["age"],
             "gender": cust_row["gender"],

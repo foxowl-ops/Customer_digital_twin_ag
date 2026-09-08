@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from components.glass_card import render_banner, render_metric_card
+from core.currency import format_inr
 
 def render_stage_03():
     """Stage 03: Customer Data Platform / Lakehouse Explorer."""
@@ -16,9 +17,9 @@ def render_stage_03():
     # Top Stats
     s1, s2, s3, s4 = st.columns(4)
     with s1:
-        render_metric_card("Total Annual Premium Written", f"${df['annual_premium'].sum():,.0f}", "Across All Policies", "neutral")
+        render_metric_card("Total Annual Premium Written", format_inr(df['annual_premium'].sum()), "Across All Policies", "neutral")
     with s2:
-        render_metric_card("Avg Annual Premium", f"${df['annual_premium'].mean():,.0f}", "Healthy Book Growth", "positive")
+        render_metric_card("Avg Annual Premium", format_inr(df['annual_premium'].mean()), "Healthy Book Growth", "positive")
     with s3:
         render_metric_card("Avg Credit / Insurance Score", f"{df['credit_score'].mean():.0f}", "Prime Tier", "positive")
     with s4:
@@ -43,7 +44,7 @@ def render_stage_03():
         
         # Filters
         min_inc, max_inc = int(df["annual_income"].min()), int(df["annual_income"].max())
-        income_range = st.slider("Annual Income ($)", min_inc, max_inc, (min_inc, max_inc), step=10000)
+        income_range = st.slider("Annual Income (₹)", min_inc, max_inc, (min_inc, max_inc), step=100000)
         
         segments = ["All"] + sorted(list(df["segment_name"].dropna().unique()))
         selected_seg = st.selectbox("Customer Segment", segments)
@@ -101,9 +102,9 @@ def render_stage_03():
             column_config={
                 "customer_id": "Customer ID",
                 "name": "Customer Name",
-                "annual_income": st.column_config.NumberColumn("Income", format="$%d"),
-                "insured_asset_value": st.column_config.NumberColumn("Insured Asset Value", format="$%d"),
-                "annual_premium": st.column_config.NumberColumn("Annual Premium", format="$%d"),
+                "annual_income": st.column_config.NumberColumn("Income", format="₹%d"),
+                "insured_asset_value": st.column_config.NumberColumn("Insured Asset Value", format="₹%d"),
+                "annual_premium": st.column_config.NumberColumn("Annual Premium", format="₹%d"),
                 "lapse_risk": st.column_config.ProgressColumn("Lapse Risk", min_value=0.0, max_value=1.0, format="%.2f"),
             }
         )
