@@ -13,13 +13,14 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom Design System & CSS Injection
-from styles.theme import inject_custom_css
-inject_custom_css()
-
 # Central Session State Initialization
 from core.state import init_session_state
 init_session_state()
+
+# Custom Design System & CSS Injection
+from styles.theme import inject_custom_css, inject_theme_attribute
+inject_custom_css()
+inject_theme_attribute()
 
 # Components & Navigation
 from components.stepper import render_pipeline_stepper, STAGES
@@ -46,16 +47,29 @@ with st.sidebar:
                 🛡️
             </div>
             <div>
-                <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #ffffff;">TwinEngine AI</h3>
-                <span style="font-size: 0.75rem; color: #94a3b8;">General Insurance Digital Twin Platform</span>
+                <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: var(--text-main);">TwinEngine AI</h3>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">General Insurance Digital Twin Platform</span>
             </div>
         </div>
         """,
         unsafe_allow_html=True
     )
     
-    st.markdown("<hr style='border: none; border-top: 1px solid rgba(255, 255, 255, 0.08); margin: 0.75rem 0;' />", unsafe_allow_html=True)
-    
+    st.markdown("<hr style='border: none; border-top: 1px solid rgba(var(--edge-rgb), 0.08); margin: 0.75rem 0;' />", unsafe_allow_html=True)
+
+    # Theme Toggle
+    is_light = st.toggle(
+        "☀️ Light Mode" if st.session_state.theme == "light" else "🌙 Dark Mode",
+        value=(st.session_state.theme == "light"),
+        help="Switch between the dark and light Liquid Glass themes"
+    )
+    new_theme = "light" if is_light else "dark"
+    if new_theme != st.session_state.theme:
+        st.session_state.theme = new_theme
+        st.rerun()
+
+    st.markdown("<hr style='border: none; border-top: 1px solid rgba(var(--edge-rgb), 0.08); margin: 0.75rem 0;' />", unsafe_allow_html=True)
+
     # LLM Engine & API Configuration
     st.markdown("#### ⚡ Generative AI Engine")
     llm_service = st.session_state.llm_service
@@ -79,11 +93,11 @@ with st.sidebar:
     else:
         engine_status = "🔵 High-Fidelity Simulation"
         
-    st.markdown(f"<span style='font-size: 0.8rem; color: #94a3b8;'>Engine: <strong style='color: #67e8f9;'>{engine_status}</strong></span>", unsafe_allow_html=True)
+    st.markdown(f"<span style='font-size: 0.8rem; color: var(--text-muted);'>Engine: <strong style='color: var(--accent-cyan-text);'>{engine_status}</strong></span>", unsafe_allow_html=True)
     if llm_service.last_error and "permission-denied" in str(llm_service.last_error):
         st.markdown("<span style='font-size: 0.72rem; color: #f59e0b;'>Note: xAI key recognized. Ensure credits are added at console.x.ai for live tokens. Simulation engine active.</span>", unsafe_allow_html=True)
     
-    st.markdown("<hr style='border: none; border-top: 1px solid rgba(255, 255, 255, 0.08); margin: 0.75rem 0;' />", unsafe_allow_html=True)
+    st.markdown("<hr style='border: none; border-top: 1px solid rgba(var(--edge-rgb), 0.08); margin: 0.75rem 0;' />", unsafe_allow_html=True)
     
     # Direct Navigation
     st.markdown("#### 🧭 Pipeline Stages (1-13)")
@@ -98,7 +112,7 @@ with st.sidebar:
         st.session_state.current_stage_idx = new_idx
         st.rerun()
         
-    st.markdown("<hr style='border: none; border-top: 1px solid rgba(255, 255, 255, 0.08); margin: 0.75rem 0;' />", unsafe_allow_html=True)
+    st.markdown("<hr style='border: none; border-top: 1px solid rgba(var(--edge-rgb), 0.08); margin: 0.75rem 0;' />", unsafe_allow_html=True)
     
     # Quick Demo Presets
     st.markdown("#### 🚀 Quick Demo Presets")
@@ -125,7 +139,7 @@ with st.sidebar:
     st.markdown("<div style='margin-top: 2rem;'></div>", unsafe_allow_html=True)
     st.markdown(
         """
-        <div style="background: rgba(17, 24, 39, 0.5); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 0.75rem; font-size: 0.75rem; color: #64748b;">
+        <div style="background: rgba(var(--surface-rgb), 0.5); border: 1px solid rgba(var(--edge-rgb), 0.06); border-radius: 8px; padding: 0.75rem; font-size: 0.75rem; color: var(--text-dim);">
             <strong>TwinEngine Architecture v2.0 — General Insurance</strong><br/>
             GDPR & CCPA Compliant • xAI Grok & Claude 3.5 • Liquid Glass UI
         </div>

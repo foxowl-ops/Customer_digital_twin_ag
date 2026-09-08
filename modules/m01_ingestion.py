@@ -37,8 +37,8 @@ def render_stage_01():
             """
             <div class="glass-container">
                 <div class="glass-header-glow"></div>
-                <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: #ffffff;">⚙️ Ingestion Pipeline Controls</h4>
-                <p style="color: #94a3b8; font-size: 0.85rem;">Trigger synthetic pipeline re-ingestion or adjust sample generation parameters.</p>
+                <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: var(--text-main);">⚙️ Ingestion Pipeline Controls</h4>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Trigger synthetic pipeline re-ingestion or adjust sample generation parameters.</p>
             </div>
             """,
             unsafe_allow_html=True
@@ -73,12 +73,12 @@ def render_stage_01():
         st.markdown(
             """
             <div class="glass-container" style="margin-top: 1rem; padding: 1rem;">
-                <h5 style="margin: 0 0 0.5rem 0; color: #67e8f9; font-size: 0.9rem;">📡 Live Pipeline Feeds</h5>
-                <ul style="margin: 0; padding-left: 1.2rem; color: #94a3b8; font-size: 0.82rem; line-height: 1.6;">
-                    <li><strong style="color: #e2e8f0;">Policy Administration (Guidewire/Duck Creek)</strong>: Active coverage & premium terms</li>
-                    <li><strong style="color: #e2e8f0;">Claims Management System</strong>: First-notice-of-loss & claims status</li>
-                    <li><strong style="color: #e2e8f0;">CRM Interaction Stream (Salesforce)</strong>: Transcripts & CSAT</li>
-                    <li><strong style="color: #e2e8f0;">Market & Regulatory Feed</strong>: Catastrophe alerts & competitor rate filings</li>
+                <h5 style="margin: 0 0 0.5rem 0; color: var(--accent-cyan-text); font-size: 0.9rem;">📡 Live Pipeline Feeds</h5>
+                <ul style="margin: 0; padding-left: 1.2rem; color: var(--text-muted); font-size: 0.82rem; line-height: 1.6;">
+                    <li><strong style="color: var(--text-body);">Policy Administration (Guidewire/Duck Creek)</strong>: Active coverage & premium terms</li>
+                    <li><strong style="color: var(--text-body);">Claims Management System</strong>: First-notice-of-loss & claims status</li>
+                    <li><strong style="color: var(--text-body);">CRM Interaction Stream (Salesforce)</strong>: Transcripts & CSAT</li>
+                    <li><strong style="color: var(--text-body);">Market & Regulatory Feed</strong>: Catastrophe alerts & competitor rate filings</li>
                 </ul>
             </div>
             """,
@@ -91,7 +91,7 @@ def render_stage_01():
             <div class="glass-container">
                 <div class="glass-header-glow"></div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                    <h4 style="margin: 0; font-size: 1.1rem; color: #ffffff;">📋 Real-Time Ingestion Buffer Preview</h4>
+                    <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-main);">📋 Real-Time Ingestion Buffer Preview</h4>
                     <span class="glass-badge badge-indigo">Schema Verified</span>
                 </div>
             </div>

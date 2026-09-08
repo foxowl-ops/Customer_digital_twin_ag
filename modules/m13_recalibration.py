@@ -36,8 +36,8 @@ def render_stage_13():
             """
             <div class="glass-container">
                 <div class="glass-header-glow"></div>
-                <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: #ffffff;">⚙️ Behavioral Recalibration Studio</h4>
-                <p style="color: #94a3b8; font-size: 0.85rem;">Select a twin to adjust parameters and create a new versioned release.</p>
+                <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: var(--text-main);">⚙️ Behavioral Recalibration Studio</h4>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Select a twin to adjust parameters and create a new versioned release.</p>
             </div>
             """,
             unsafe_allow_html=True
@@ -104,7 +104,7 @@ def render_stage_13():
             <div class="glass-container">
                 <div class="glass-header-glow"></div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                    <h4 style="margin: 0; font-size: 1.1rem; color: #ffffff;">📊 Parameter Drift & Visual Diff</h4>
+                    <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-main);">📊 Parameter Drift & Visual Diff</h4>
                     <span class="glass-badge badge-cyan">Visual Diff Engine</span>
                 </div>
             </div>

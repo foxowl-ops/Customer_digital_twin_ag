@@ -9,8 +9,8 @@ def glass_card_start(title: str = None, subtitle: str = None, badge_text: str = 
         header_html = f"""
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
             <div>
-                <h3 style="margin: 0; font-size: 1.25rem; font-weight: 700; color: #f8fafc;">{title}</h3>
-                {f'<p style="margin: 0.2rem 0 0 0; font-size: 0.85rem; color: #94a3b8;">{subtitle}</p>' if subtitle else ''}
+                <h3 style="margin: 0; font-size: 1.25rem; font-weight: 700; color: var(--text-main);">{title}</h3>
+                {f'<p style="margin: 0.2rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">{subtitle}</p>' if subtitle else ''}
             </div>
             {badge_html}
         </div>
@@ -59,8 +59,8 @@ def render_banner(title: str, description: str, icon: str = "✨", accent_color:
                 {icon}
             </div>
             <div>
-                <h2 style="margin: 0; font-size: 1.5rem; font-weight: 800; background: linear-gradient(90deg, #ffffff, #c7d2fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">{title}</h2>
-                <p style="margin: 0.35rem 0 0 0; color: #94a3b8; font-size: 0.95rem; line-height: 1.5;">{description}</p>
+                <h2 style="margin: 0; font-size: 1.5rem; font-weight: 800; background: linear-gradient(90deg, var(--text-main), var(--accent-indigo-soft)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">{title}</h2>
+                <p style="margin: 0.35rem 0 0 0; color: var(--text-muted); font-size: 0.95rem; line-height: 1.5;">{description}</p>
             </div>
         </div>
     </div>

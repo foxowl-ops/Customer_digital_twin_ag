@@ -35,8 +35,8 @@ def render_stage_03():
             """
             <div class="glass-container">
                 <div class="glass-header-glow"></div>
-                <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: #ffffff;">🔍 Lakehouse Query Builder</h4>
-                <p style="color: #94a3b8; font-size: 0.85rem;">Filter unified customer dataset across demographic & financial dimensions.</p>
+                <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: var(--text-main);">🔍 Lakehouse Query Builder</h4>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Filter unified customer dataset across demographic & financial dimensions.</p>
             </div>
             """,
             unsafe_allow_html=True
@@ -83,7 +83,7 @@ def render_stage_03():
             <div class="glass-container">
                 <div class="glass-header-glow"></div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                    <h4 style="margin: 0; font-size: 1.1rem; color: #ffffff;">📊 Lakehouse Unified Dataset ({len(filtered_df)} Records Found)</h4>
+                    <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-main);">📊 Lakehouse Unified Dataset ({len(filtered_df)} Records Found)</h4>
                     <span class="glass-badge badge-cyan">Delta Lake v3.2</span>
                 </div>
             </div>

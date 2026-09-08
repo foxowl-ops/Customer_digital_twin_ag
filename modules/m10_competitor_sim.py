@@ -26,10 +26,10 @@ def render_stage_10():
             <div class="glass-container" style="border-color: rgba(99, 102, 241, 0.3);">
                 <div class="glass-header-glow"></div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                    <h4 style="margin: 0; color: #67e8f9;">🏢 Current Baseline Proposition</h4>
+                    <h4 style="margin: 0; color: var(--accent-cyan-text);">🏢 Current Baseline Proposition</h4>
                     <span class="glass-badge badge-indigo">Incumbent</span>
                 </div>
-                <ul style="margin: 0; padding-left: 1.2rem; color: #e2e8f0; font-size: 0.85rem; line-height: 1.6;">
+                <ul style="margin: 0; padding-left: 1.2rem; color: var(--text-body); font-size: 0.85rem; line-height: 1.6;">
                     <li><strong>Auto + Home Bundle Premium:</strong> ₹17,482/mo baseline</li>
                     <li><strong>Policy Fee:</strong> ₹0 with 2+ bundled policies (₹1,134/mo otherwise)</li>
                     <li><strong>Claims Response SLA:</strong> 48hr Domestic / 72hr Out-of-State</li>
@@ -46,7 +46,7 @@ def render_stage_10():
             <div class="glass-container" style="border-color: rgba(244, 63, 94, 0.35);">
                 <div class="glass-header-glow" style="background: linear-gradient(90deg, transparent, #f43f5e, #f59e0b, transparent);"></div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                    <h4 style="margin: 0; color: #fda4af;">⚡ Competitor Challenger Offer</h4>
+                    <h4 style="margin: 0; color: var(--accent-rose-text);">⚡ Competitor Challenger Offer</h4>
                     <span class="glass-badge badge-rose">Disruptor InsurTech</span>
                 </div>
             </div>
@@ -123,8 +123,8 @@ def render_stage_10():
             st.markdown(
                 """
                 <div class="glass-container" style="padding: 0.85rem; background: rgba(244, 63, 94, 0.08); border-color: rgba(244, 63, 94, 0.3);">
-                    <h5 style="margin: 0 0 0.35rem 0; color: #fda4af; font-size: 0.88rem;">🚨 High Risk Warning</h5>
-                    <p style="margin: 0; color: #cbd5e1; font-size: 0.8rem;">Premium-Sensitive and Digitally-Savvy segments show >65% lapse risk if the competitor premium discount exceeds 20% with zero fees.</p>
+                    <h5 style="margin: 0 0 0.35rem 0; color: var(--accent-rose-text); font-size: 0.88rem;">🚨 High Risk Warning</h5>
+                    <p style="margin: 0; color: var(--text-secondary-body); font-size: 0.8rem;">Premium-Sensitive and Digitally-Savvy segments show >65% lapse risk if the competitor premium discount exceeds 20% with zero fees.</p>
                 </div>
                 """,
                 unsafe_allow_html=True

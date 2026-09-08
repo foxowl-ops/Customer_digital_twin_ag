@@ -45,8 +45,8 @@ def render_stage_08():
             """
             <div class="glass-container">
                 <div class="glass-header-glow"></div>
-                <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: #ffffff;">⚙️ Orchestration Workbench</h4>
-                <p style="color: #94a3b8; font-size: 0.85rem;">Select twin persona and test hypothetical scenarios or questions.</p>
+                <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: var(--text-main);">⚙️ Orchestration Workbench</h4>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Select twin persona and test hypothetical scenarios or questions.</p>
             </div>
             """,
             unsafe_allow_html=True
@@ -108,7 +108,7 @@ def render_stage_08():
             <div class="glass-container">
                 <div class="glass-header-glow"></div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                    <h4 style="margin: 0; font-size: 1.1rem; color: #ffffff;">💬 Twin Simulated Response</h4>
+                    <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-main);">💬 Twin Simulated Response</h4>
                     <span class="glass-badge badge-cyan">In Character</span>
                 </div>
             </div>
@@ -122,10 +122,10 @@ def render_stage_08():
                 f"""
                 <div class="chat-bubble-twin">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
-                        <strong style="color: #67e8f9; font-size: 0.95rem;">{last_twin['avatar_emoji']} {last_twin['customer_name']}</strong>
-                        <span style="color: #94a3b8; font-size: 0.75rem;">Mode: {last_resp.get('mode')} • {last_resp.get('latency_sec')}s</span>
+                        <strong style="color: var(--accent-cyan-text); font-size: 0.95rem;">{last_twin['avatar_emoji']} {last_twin['customer_name']}</strong>
+                        <span style="color: var(--text-muted); font-size: 0.75rem;">Mode: {last_resp.get('mode')} • {last_resp.get('latency_sec')}s</span>
                     </div>
-                    <div style="color: #f8fafc; font-size: 0.92rem; line-height: 1.6;">
+                    <div style="color: var(--text-main); font-size: 0.92rem; line-height: 1.6;">
                         {last_resp.get('text')}
                     </div>
                 </div>

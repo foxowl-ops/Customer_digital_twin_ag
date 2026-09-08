@@ -36,8 +36,8 @@ def render_stage_09():
             """
             <div class="glass-container">
                 <div class="glass-header-glow"></div>
-                <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: #ffffff;">👥 Panel Composition</h4>
-                <p style="color: #94a3b8; font-size: 0.85rem;">Select 3 to 4 distinct personas to participate in the focus group.</p>
+                <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: var(--text-main);">👥 Panel Composition</h4>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Select 3 to 4 distinct personas to participate in the focus group.</p>
             </div>
             """,
             unsafe_allow_html=True
@@ -83,7 +83,7 @@ def render_stage_09():
             <div class="glass-container">
                 <div class="glass-header-glow"></div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                    <h4 style="margin: 0; font-size: 1.1rem; color: #ffffff;">🎙️ Live Focus Group Transcript & Panel Stream</h4>
+                    <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-main);">🎙️ Live Focus Group Transcript & Panel Stream</h4>
                     <span class="glass-badge badge-indigo">Multi-Agent Simulation</span>
                 </div>
             </div>
@@ -156,7 +156,7 @@ def render_stage_09():
                 if msg["role"] == "moderator":
                     st.markdown(
                         f"""
-                        <div style="background: rgba(99, 102, 241, 0.15); border: 1px dashed rgba(99, 102, 241, 0.4); border-radius: 12px; padding: 0.75rem 1rem; margin-bottom: 0.85rem; color: #c7d2fe; font-size: 0.88rem;">
+                        <div style="background: rgba(99, 102, 241, 0.15); border: 1px dashed rgba(99, 102, 241, 0.4); border-radius: 12px; padding: 0.75rem 1rem; margin-bottom: 0.85rem; color: var(--accent-indigo-soft); font-size: 0.88rem;">
                             <strong>{msg['avatar']} {msg['speaker']}:</strong> {msg['text']}
                         </div>
                         """,
@@ -166,8 +166,8 @@ def render_stage_09():
                     st.markdown(
                         f"""
                         <div class="chat-bubble-twin">
-                            <strong style="color: #67e8f9; font-size: 0.9rem;">{msg['avatar']} {msg['speaker']}</strong>
-                            <p style="margin: 0.35rem 0 0 0; color: #f8fafc; font-size: 0.88rem; line-height: 1.5;">{msg['text']}</p>
+                            <strong style="color: var(--accent-cyan-text); font-size: 0.9rem;">{msg['avatar']} {msg['speaker']}</strong>
+                            <p style="margin: 0.35rem 0 0 0; color: var(--text-main); font-size: 0.88rem; line-height: 1.5;">{msg['text']}</p>
                         </div>
                         """,
                         unsafe_allow_html=True
@@ -176,15 +176,15 @@ def render_stage_09():
             st.markdown("#### 📑 Executive Qualitative Synthesis")
             st.markdown(
                 f"""
-                <div class="glass-container" style="background: rgba(17, 24, 39, 0.8); border-color: rgba(6, 182, 212, 0.3);">
+                <div class="glass-container" style="background: rgba(var(--surface-rgb), 0.8); border-color: rgba(6, 182, 212, 0.3);">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                        <h5 style="margin: 0; color: #67e8f9;">Summary Consensus</h5>
+                        <h5 style="margin: 0; color: var(--accent-cyan-text);">Summary Consensus</h5>
                         <span class="glass-badge badge-amber">Actionable Synthesis</span>
                     </div>
-                    <p style="color: #f8fafc; font-size: 0.88rem; margin-bottom: 0.85rem;">{active_fg['consensus']}</p>
+                    <p style="color: var(--text-main); font-size: 0.88rem; margin-bottom: 0.85rem;">{active_fg['consensus']}</p>
                     <div style="background: rgba(6, 182, 212, 0.1); border-left: 3px solid #06b6d4; padding: 0.65rem 0.85rem; border-radius: 0 6px 6px 0;">
-                        <strong style="color: #67e8f9; font-size: 0.85rem;">Strategic Go-Forward Recommendation:</strong>
-                        <p style="margin: 0.2rem 0 0 0; color: #e2e8f0; font-size: 0.83rem;">{active_fg['recommendation']}</p>
+                        <strong style="color: var(--accent-cyan-text); font-size: 0.85rem;">Strategic Go-Forward Recommendation:</strong>
+                        <p style="margin: 0.2rem 0 0 0; color: var(--text-body); font-size: 0.83rem;">{active_fg['recommendation']}</p>
                     </div>
                 </div>
                 """,

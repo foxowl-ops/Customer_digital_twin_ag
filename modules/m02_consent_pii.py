@@ -54,8 +54,8 @@ def render_stage_02():
             """
             <div class="glass-container">
                 <div class="glass-header-glow"></div>
-                <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: #ffffff;">🔒 Privacy & Consent Inspector</h4>
-                <p style="color: #94a3b8; font-size: 0.85rem;">Select a customer to inspect and toggle individual GDPR/CCPA consent flags.</p>
+                <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: var(--text-main);">🔒 Privacy & Consent Inspector</h4>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Select a customer to inspect and toggle individual GDPR/CCPA consent flags.</p>
             </div>
             """,
             unsafe_allow_html=True
@@ -114,7 +114,7 @@ def render_stage_02():
             <div class="glass-container">
                 <div class="glass-header-glow"></div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                    <h4 style="margin: 0; font-size: 1.1rem; color: #ffffff;">👁️ Live Masked Customer Data View</h4>
+                    <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-main);">👁️ Live Masked Customer Data View</h4>
                     <span class="glass-badge badge-emerald">GDPR & CCPA Compliant</span>
                 </div>
             </div>
