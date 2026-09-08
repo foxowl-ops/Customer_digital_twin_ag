@@ -39,6 +39,24 @@ CITIES = [
     ("Boston", "MA"), ("Denver", "CO"), ("Atlanta", "GA")
 ]
 
+INDIAN_FIRST_NAMES_MALE = [
+    "Aarav", "Vivaan", "Aditya", "Vihaan", "Arjun", "Sai", "Reyansh", "Ayaan", "Krishna", "Ishaan",
+    "Rohan", "Aryan", "Kabir", "Dhruv", "Vikram", "Rahul", "Amit", "Sanjay", "Rajesh", "Suresh",
+    "Anand", "Deepak", "Manish", "Nikhil", "Pranav", "Karan", "Varun", "Siddharth", "Rakesh", "Ashok"
+]
+
+INDIAN_FIRST_NAMES_FEMALE = [
+    "Saanvi", "Ananya", "Diya", "Aadhya", "Kavya", "Ira", "Myra", "Sara", "Anika", "Navya",
+    "Priya", "Neha", "Pooja", "Sneha", "Divya", "Shreya", "Meera", "Kritika", "Riya", "Isha",
+    "Lakshmi", "Deepika", "Anjali", "Swati", "Sunita", "Kavita", "Rekha", "Nisha", "Radhika", "Aditi"
+]
+
+INDIAN_LAST_NAMES = [
+    "Sharma", "Verma", "Gupta", "Mehta", "Shah", "Patel", "Kumar", "Singh", "Rao", "Reddy",
+    "Nair", "Menon", "Iyer", "Iyengar", "Pillai", "Chatterjee", "Banerjee", "Mukherjee", "Das", "Ghosh",
+    "Kapoor", "Malhotra", "Chopra", "Khanna", "Bhatt", "Joshi", "Desai", "Agarwal", "Bose", "Pandey"
+]
+
 FEEDBACK_SNIPPETS_POOL = [
     "The mobile app claims filing is lightning fast, but I hate that my premium jumped 18% at renewal with no explanation.",
     "Very pleased with how my agent handled my homeowners claim, though the adjuster inspection took two days too long to schedule.",
@@ -59,8 +77,8 @@ def generate_synthetic_customers(n: int = 150) -> pd.DataFrame:
     for i in range(n):
         cust_id = f"CUST-{10000 + i}"
         gender = random.choice(["Female", "Male", "Non-Binary"])
-        first_name = fake.first_name_female() if gender == "Female" else fake.first_name_male()
-        last_name = fake.last_name()
+        first_name = random.choice(INDIAN_FIRST_NAMES_FEMALE) if gender == "Female" else random.choice(INDIAN_FIRST_NAMES_MALE)
+        last_name = random.choice(INDIAN_LAST_NAMES)
         full_name = f"{first_name} {last_name}"
         email = f"{first_name.lower()}.{last_name.lower()}@{fake.free_email_domain()}"
         phone = f"+1 ({random.randint(200,999)}) {random.randint(200,999)}-{random.randint(1000,9999)}"

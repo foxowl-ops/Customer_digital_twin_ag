@@ -30,7 +30,7 @@ def render_stage_12():
             {
                 "id": "VAL-RP-002",
                 "type": "Sales Role-Play",
-                "target": "Sarah Jenkins - Umbrella Liability Pitch",
+                "target": "Priya Sharma - Umbrella Liability Pitch",
                 "status": "PENDING_REVIEW",
                 "score": None,
                 "timestamp": "2026-08-24 11:15:40",
